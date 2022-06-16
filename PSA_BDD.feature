@@ -3,7 +3,7 @@ Feature: Se puede crear proyectos {US-5}
   Scenario: Crear un proyecto
     Given que soy un empleado
     When solicite crear un proyecto ingresare: "PSA-123","Desarrollo","Google","Alcance","14.3","Un sistema para contar visitas"
-    Then el sistema creara un proyecto con :"PSA-123","Desarrollo","Google","Alcance","14.3","Un sistema para contar visitas", "Alan,Marco"
+    Then el sistema creara un proyecto con :"PSA-123","Desarrollo","Google","Alcance","14.3","Un sistema para contar visitas", "Alan,Marco", "Agregarx,agregary","17",
 
 
 Feature: Dar de baja un proyecto {US-6}

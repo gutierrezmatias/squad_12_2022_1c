@@ -1,8 +1,11 @@
 package com.aninfo.psa.modelo;
 
 
+import springfox.documentation.annotations.ApiIgnore;
+
 import javax.persistence.*;
 
+@ApiIgnore
 @Entity
 public class Tarea {
     @Id

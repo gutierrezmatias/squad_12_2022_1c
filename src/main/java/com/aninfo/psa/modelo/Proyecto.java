@@ -1,12 +1,14 @@
 package com.aninfo.psa.modelo;
 
 import com.aninfo.psa.listas.ListaDeTareas;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ApiIgnore
 @Entity
 public class Proyecto {
 

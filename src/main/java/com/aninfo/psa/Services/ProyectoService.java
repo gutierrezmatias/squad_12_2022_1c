@@ -2,6 +2,7 @@ package com.aninfo.psa.Services;
 
 import com.aninfo.psa.Repository.ProyectosRepository;
 import com.aninfo.psa.Repository.TareasRepository;
+import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Proyecto;
 import com.aninfo.psa.modelo.Tarea;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,8 +47,17 @@ public class ProyectoService {
     }
 
     @Transactional
-    public Tarea asignar_tarea(Proyecto proyecto, Tarea tarea) {
-        proyecto.add_tarea(tarea);
-        return tareasRepository.save(tarea);
+    public Tarea asignar_tarea(Proyecto proyecto, Long id) {
+        Optional<Tarea> optionalTarea = tareasRepository.findById(id);
+        if (!optionalTarea.isPresent()){
+            throw new NoExisteLaTareaBuscadaError();
+        }
+        proyecto.add_tarea(optionalTarea.get());
+        return optionalTarea.get();
+    }
+    @Transactional
+    public void eliminar_tarea(Long id, Long tarea_id) {
+        var proyecto = proyectosRepository.findById(id).get();
+        proyecto.remover_tarea(tarea_id);
     }
 }

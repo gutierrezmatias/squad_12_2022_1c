@@ -1,6 +1,8 @@
 package com.aninfo.psa.modelo;
 
 import com.aninfo.psa.listas.ListaDeTareas;
+import com.sun.istack.NotNull;
+import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
@@ -13,7 +15,7 @@ import java.util.stream.Collectors;
 public class Proyecto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     private String tipo;
@@ -24,10 +26,12 @@ public class Proyecto {
     private String testing;
     private String descripcion;
     @OneToMany(cascade = {CascadeType.ALL})
-    private List<Tarea> tareas = new ArrayList<Tarea>();
+    @ApiModelProperty(hidden = true)
+    private List<Tarea> tareas;
 
-    @ManyToMany
-    private List<Recurso> recursos;
+    @OneToMany(cascade = {CascadeType.ALL})
+    @ApiModelProperty(hidden = true)
+    private List<Recurso> recursos = new ArrayList<Recurso>();
     private String horaEstimada;
     private String estado = "Activo";
     @ManyToOne(cascade = {CascadeType.ALL})
@@ -97,11 +101,16 @@ public class Proyecto {
         return this.tareas;
     }
 
+    public List<Recurso> getRecursos(){
+        return this.recursos;
+    }
+
     public long getid(){
         return this.id;
     }
 
     public List<Tarea> buscar_tarea_por_estado(String arg0) {
+
         var conEstado = tareas.stream()
                 .filter(tarea -> tarea.getEstado().equals(arg0))
                 .collect(Collectors.toList());
@@ -109,9 +118,14 @@ public class Proyecto {
     }
 
     public List<Tarea> buscar_tarea_por_prioridad(String arg0) {
+
         var conPrioridad = tareas.stream()
                 .filter(tarea -> tarea.getPrioridad().equals(arg0))
                 .collect(Collectors.toList());
         return new ArrayList<Tarea>(conPrioridad);
+    }
+
+    public void remover_tarea(Long tarea_id) {
+        tareas.removeIf(tarea -> tarea.getId().equals(tarea_id));
     }
 }

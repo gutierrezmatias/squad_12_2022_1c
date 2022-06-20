@@ -9,11 +9,8 @@ public class Recurso {
     private Long id;
     private String name;
 
-
-
-    public Recurso(String name, Long id){
-        this.name = name;
-        this.id = id;
+    public Long getID(){
+        return this.id;
     }
     public Recurso(){}
     public Recurso(String name) {

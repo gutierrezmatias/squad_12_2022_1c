@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 public class Tarea {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private int horas;
@@ -19,10 +19,17 @@ public class Tarea {
     private String descripción;
     private String objetivo;
 
+    @ManyToOne(cascade = {CascadeType.ALL})
+    private Proyecto proyecto;
+
     public Tarea(int horas){
         this.horas = horas;
     }
     public Tarea(){}
+
+    public Long getId(){
+        return this.id;
+    }
 
     public Tarea(String arg0) {
         this.nombre = arg0;

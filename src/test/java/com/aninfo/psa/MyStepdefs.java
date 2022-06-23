@@ -53,13 +53,13 @@ public class MyStepdefs {
         proyecto.dar_baja();
     }
 
-    @Then("el sistema dará de baja ese proyecto")
-    public void elSistemaDaráDeBajaEseProyecto() {
+    @Then("el sistema dara de baja ese proyecto")
+    public void elSistemaDaraDeBajaEseProyecto() {
         dado_de_baja = proyecto.getEstado();
     }
 
-    @And("su estado cambiará a <{string}>")
-    public void suEstadoCambiaráA(String arg0) {
+    @And("su estado cambiara a <{string}>")
+    public void suEstadoCambiaraA(String arg0) {
         assertEquals(arg0, dado_de_baja);
     }
 
@@ -73,8 +73,8 @@ public class MyStepdefs {
         recurso = new Recurso("Juan");
     }
 
-    @Then("el sistema permitira la designación de un empleado como lider de proyecto")
-    public void elSistemaPermitiraLaDesignaciónDeUnEmpleadoComoLiderDeProyecto() {
+    @Then("el sistema permitira la designacion de un empleado como lider de proyecto")
+    public void elSistemaPermitiraLaDesignacionDeUnEmpleadoComoLiderDeProyecto() {
         proyecto.asignar_lider(recurso);
         assertNotNull(proyecto.getLider());
     }

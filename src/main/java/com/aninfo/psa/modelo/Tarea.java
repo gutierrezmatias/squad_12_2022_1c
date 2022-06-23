@@ -1,6 +1,7 @@
 package com.aninfo.psa.modelo;
 
 
+import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
@@ -12,18 +13,22 @@ public class Tarea {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int horas;
+    private int horasEstimadas;
     private String nombre;
+    private int fechaCreacion;
+    @OneToOne(cascade = {CascadeType.ALL})
+    private Recurso recursoAsignado;
     private String estado;
     private String prioridad;
     private String descripción;
     private String objetivo;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
-    private Proyecto proyecto;
 
-    public Tarea(int horas){
-        this.horas = horas;
+    @ApiModelProperty(hidden = true)
+    private Long ProyectoID;
+
+    public Tarea(int horasEstimadas){
+        this.horasEstimadas = horasEstimadas;
     }
     public Tarea(){}
 
@@ -36,11 +41,11 @@ public class Tarea {
     }
 
     public void ingresar_estimado(int arg0) {
-        this.horas = arg0;
+        this.horasEstimadas = arg0;
     }
 
-    public int getHorasEstimadas() {
-        return this.horas;
+    public int gethorasEstimadas() {
+        return this.horasEstimadas;
     }
 
     public String getNombre() {
@@ -61,5 +66,15 @@ public class Tarea {
 
     public String getPrioridad() {
         return this.prioridad;
+    }
+
+    public int getFechaCreacion(){return this.fechaCreacion;}
+
+    public Recurso getRecursoAsignado(){return this.recursoAsignado;}
+
+    public Long getProyectoID(){return this.ProyectoID;}
+
+    public void actualizar_proyecto_id(Long getid) {
+        this.ProyectoID = getid;
     }
 }

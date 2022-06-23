@@ -84,7 +84,7 @@ public class MyStepdefs {
         var recurso_auxiliar = new Recurso("Manuel");
         proyecto.asignar_lider(recurso);
         proyecto.asignar_lider(recurso_auxiliar);
-        assertNotEquals(recurso.getNombre(), proyecto.getLider().getNombre());
+        assertNotEquals(recurso.getName(), proyecto.getLider().getName());
 
     }
 
@@ -100,7 +100,7 @@ public class MyStepdefs {
 
     @Then("la tarea pasará a tener <{int}> horas estimadas")
     public void laTareaPasaráATenerHorasEstimadas(int arg0) {
-        assertEquals(arg0, tarea.getHorasEstimadas());
+        assertEquals(arg0, tarea.gethorasEstimadas());
     }
 
     @When("elijo una tarea con {int} horas estimadas")

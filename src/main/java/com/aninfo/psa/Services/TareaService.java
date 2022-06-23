@@ -2,6 +2,7 @@ package com.aninfo.psa.Services;
 
 import com.aninfo.psa.Repository.ProyectosRepository;
 import com.aninfo.psa.Repository.TareasRepository;
+import com.aninfo.psa.excepciones.LaTareaTieneAsignadaUnProyecto;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Tarea;
 import io.swagger.models.Response;
@@ -31,6 +32,9 @@ public class TareaService {
     }
 
     public void deleteByid(Long id) {
+        if(tareasRepository.findById(id).get().getProyectoID() != null){
+            throw new LaTareaTieneAsignadaUnProyecto();
+        }
         tareasRepository.deleteById(id);
     }
 }

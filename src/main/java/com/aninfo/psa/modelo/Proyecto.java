@@ -1,7 +1,5 @@
 package com.aninfo.psa.modelo;
 
-import com.aninfo.psa.listas.ListaDeTareas;
-import com.sun.istack.NotNull;
 import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -17,24 +15,30 @@ public class Proyecto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nombre;
+
     private String tipo;
+
     private String cliente;
     private String alcance;
     private String version;
-
-    private String testing;
     private String descripcion;
-    @OneToMany(cascade = {CascadeType.ALL})
+    @OneToMany(cascade = {CascadeType.DETACH})
     @ApiModelProperty(hidden = true)
     private List<Tarea> tareas;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @ApiModelProperty(hidden = true)
-    private List<Recurso> recursos = new ArrayList<Recurso>();
-    private String horaEstimada;
+    /*@OneToMany(cascade = {CascadeType.ALL})
+    @ApiModelProperty(hidden = true, required = false)
+    private List<Recurso> recursos = new ArrayList<Recurso>();*/
+    private int horaEstimada;
+
+    private int fecha_inicio;
+
+    private int fecha_fin;
     private String estado = "Activo";
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @OneToOne(cascade = {CascadeType.ALL})
+    @ApiModelProperty(required = true)
     private Recurso lider;
 
 
@@ -89,6 +93,7 @@ public class Proyecto {
         this.lider = recurso;
     }
 
+
     public Recurso getLider() {
         return this.lider;
     }
@@ -101,14 +106,22 @@ public class Proyecto {
         return this.tareas;
     }
 
-    public List<Recurso> getRecursos(){
-        return this.recursos;
+    public List<Recurso> lista_Recursos(){
+        if (this.tareas == null){
+            return new ArrayList<Recurso>();
+        }
+        return this.tareas.stream().map(tarea -> tarea.getRecursoAsignado()).collect(Collectors.toList());
     }
 
     public long getid(){
         return this.id;
     }
 
+    public int getHoraEstimada(){return this.horaEstimada;}
+
+    public int getFecha_inicio(){return this.fecha_inicio;}
+
+    public int getFecha_fin(){return this.fecha_fin;}
     public List<Tarea> buscar_tarea_por_estado(String arg0) {
 
         var conEstado = tareas.stream()
@@ -127,5 +140,21 @@ public class Proyecto {
 
     public void remover_tarea(Long tarea_id) {
         tareas.removeIf(tarea -> tarea.getId().equals(tarea_id));
+    }
+
+    public void actualizar(ProyectoPatch proyecto1) {
+        this.nombre = (proyecto1.getNombre() == null) ? this.nombre : proyecto1.getNombre();
+        this.descripcion = (proyecto1.getDescripcion() == null) ? this.descripcion : proyecto1.getDescripcion();
+        this.alcance = (proyecto1.getAlcance() == null) ? this.alcance : proyecto1.getAlcance();
+        this.estado = (proyecto1.getEstado() == null) ? this.estado : proyecto1.getEstado();
+        this.version = (proyecto1.getVersion() == null) ? this.version : proyecto1.getVersion();
+        this.cliente = (proyecto1.getCliente() == null) ? this.cliente : proyecto1.getCliente();
+        this.lider = (proyecto1.getLider() == null) ? this.lider : proyecto1.getLider();
+        this.fecha_fin = (proyecto1.getFecha_fin() == null) ? this.fecha_fin : proyecto1.getFecha_fin();
+
+    }
+
+    public void recalcular_horas_estimadas() {
+        this.horaEstimada = this.getTareas().stream().mapToInt(tarea -> tarea.gethorasEstimadas()).sum();
     }
 }

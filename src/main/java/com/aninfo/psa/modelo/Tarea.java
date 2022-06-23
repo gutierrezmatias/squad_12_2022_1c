@@ -20,15 +20,19 @@ public class Tarea {
     private Recurso recursoAsignado;
     private String estado;
     private String prioridad;
-    private String descripción;
+    private String descripcion;
     private String objetivo;
 
 
     @ApiModelProperty(hidden = true)
     private Long ProyectoID;
 
-    public Tarea(int horasEstimadas){
-        this.horasEstimadas = horasEstimadas;
+    public Tarea(String unNombre, int unaFecha, String unaDescripcion, String unObjetivo){
+      nombre = unNombre;
+      fechaCreacion = unaFecha;
+      descripcion = unaDescripcion;
+      objetivo = unObjetivo;
+
     }
     public Tarea(){}
 

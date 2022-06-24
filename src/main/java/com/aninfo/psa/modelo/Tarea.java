@@ -4,6 +4,9 @@ package com.aninfo.psa.modelo;
 import io.swagger.annotations.ApiModelProperty;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @ApiIgnore
@@ -15,7 +18,7 @@ public class Tarea {
 
     private int horasEstimadas;
     private String nombre;
-    private int fechaCreacion;
+    private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
     private Recurso recursoAsignado;
     private String estado;
@@ -27,12 +30,21 @@ public class Tarea {
     @ApiModelProperty(hidden = true)
     private Long ProyectoID;
 
-    public Tarea(String unNombre, int unaFecha, String unaDescripcion, String unObjetivo){
+    public Tarea(String unNombre, String unaDescripcion, String unObjetivo, String unaPrioridad){
       nombre = unNombre;
-      fechaCreacion = unaFecha;
+      
+      Date date = new Date();
+      SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yy");
+      fechaCreacion = formatter.format(date);
+      
       descripcion = unaDescripcion;
       objetivo = unObjetivo;
+      prioridad = unaPrioridad;
 
+    }
+    
+    public Tarea(int unaEstimacion) {
+    	horasEstimadas = unaEstimacion;
     }
     public Tarea(){}
 
@@ -72,7 +84,7 @@ public class Tarea {
         return this.prioridad;
     }
 
-    public int getFechaCreacion(){return this.fechaCreacion;}
+    public String getFechaCreacion(){return this.fechaCreacion;}
 
     public Recurso getRecursoAsignado(){return this.recursoAsignado;}
 
@@ -81,4 +93,7 @@ public class Tarea {
     public void actualizar_proyecto_id(Long getid) {
         this.ProyectoID = getid;
     }
+	public Object getObjetivo() {
+		return objetivo;
+	}
 }

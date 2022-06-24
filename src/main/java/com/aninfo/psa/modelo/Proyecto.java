@@ -26,7 +26,7 @@ public class Proyecto {
     private String descripcion;
     @OneToMany(cascade = {CascadeType.DETACH})
     @ApiModelProperty(hidden = true)
-    private List<Tarea> tareas;
+    private List<Tarea> tareas = new ArrayList<Tarea>();
 
     /*@OneToMany(cascade = {CascadeType.ALL})
     @ApiModelProperty(hidden = true, required = false)
@@ -50,7 +50,7 @@ public class Proyecto {
         this.version = version;
         this.descripcion = descripcion;
     }
-
+   
     public Proyecto(){}
 
     public Proyecto(String nombre) {
@@ -157,4 +157,20 @@ public class Proyecto {
     public void recalcular_horas_estimadas() {
         this.horaEstimada = this.getTareas().stream().mapToInt(tarea -> tarea.gethorasEstimadas()).sum();
     }
+
+	public void borrarTarea(String unNombre) {
+		for (Tarea unaTarea: tareas) {
+			if (unaTarea.getNombre().equals(unNombre)) tareas.remove(unaTarea);
+		}
+		
+	}
+
+	public boolean existeTarea(String unNombre) {
+		for (Tarea unaTarea: tareas) {
+			if (unaTarea.getNombre().equals(unNombre)) return true;
+		}
+		
+		return false;
+		
+	}
 }

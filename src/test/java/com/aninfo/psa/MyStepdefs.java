@@ -7,7 +7,9 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -81,7 +83,7 @@ public class MyStepdefs {
 
     @Then("el sistema permitira la modificacion del lider del proyecto")
     public void elSistemaPermitiraLaModificacionDelLiderDelProyecto() {
-        var recurso_auxiliar = new Recurso("Manuel");
+        Recurso recurso_auxiliar = new Recurso("Manuel");
         proyecto.asignar_lider(recurso);
         proyecto.asignar_lider(recurso_auxiliar);
         assertNotEquals(recurso.getName(), proyecto.getLider().getName());
@@ -98,8 +100,8 @@ public class MyStepdefs {
         tarea.ingresar_estimado(arg0);
     }
 
-    @Then("la tarea pasará a tener <{int}> horas estimadas")
-    public void laTareaPasaráATenerHorasEstimadas(int arg0) {
+    @Then("la tarea pasara a tener <{int}> horas estimadas")
+    public void laTareaPasaraATenerHorasEstimadas(int arg0) {
         assertEquals(arg0, tarea.gethorasEstimadas());
     }
 
@@ -117,11 +119,11 @@ public class MyStepdefs {
     public void unaListaDeProyectosCreados(String arg0, String arg1, String arg2) {
         listaDeProyectos = new ListaDeProyectos();
 
-        var proyecto1 = new Proyecto(arg0);
+        Proyecto proyecto1 = new Proyecto(arg0);
         proyecto1.dar_baja();
 
-        var proyecto2 = new Proyecto(arg1);
-        var proyecto3 = new Proyecto(arg2);
+        Proyecto proyecto2 = new Proyecto(arg1);
+        Proyecto proyecto3 = new Proyecto(arg2);
         listaDeProyectos.add(proyecto1);
         listaDeProyectos.add(proyecto2);
         listaDeProyectos.add(proyecto3);
@@ -132,8 +134,8 @@ public class MyStepdefs {
         proyectosPedidos = listaDeProyectos.listado_proyectos();
     }
 
-    @Then("se mostrarán los proyectos: {string}, {string}, {string}")
-    public void seMostraránLosProyectos(String arg0, String arg1, String arg2) {
+    @Then("se mostraran los proyectos: {string}, {string}, {string}")
+    public void seMostraranLosProyectos(String arg0, String arg1, String arg2) {
         assertEquals(arg0, proyectosPedidos.stream().filter(x -> arg0.equals(x.getNombre())).findFirst().get().getNombre());
         assertEquals(arg1, proyectosPedidos.stream().filter(x -> arg1.equals(x.getNombre())).findFirst().get().getNombre());
         assertEquals(arg2,proyectosPedidos.stream().filter(x -> arg2.equals(x.getNombre())).findFirst().get().getNombre());
@@ -148,9 +150,9 @@ public class MyStepdefs {
     @Given("que hay proyecto con las tareas: {string}, {string}, {string}")
     public void queHayProyectoConLasTareas(String arg0, String arg1, String arg2) {
         proyecto = new Proyecto();
-        var tarea1 = new Tarea(arg0);
-        var tarea2 = new Tarea(arg1);
-        var tarea3 = new Tarea(arg2);
+        Tarea tarea1 = new Tarea(arg0);
+        Tarea tarea2 = new Tarea(arg1);
+        Tarea tarea3 = new Tarea(arg2);
 
 
         proyecto.add_tarea(tarea1);
@@ -163,8 +165,8 @@ public class MyStepdefs {
         listaDeTareas = proyecto.getTareas();
     }
 
-    @Then("se mostrarán las tareas: {string}, {string}, {string}")
-    public void seMostraránLasTareas(String arg0, String arg1, String arg2) {
+    @Then("se mostraran las tareas: {string}, {string}, {string}")
+    public void seMostraranLasTareas(String arg0, String arg1, String arg2) {
         assertEquals(arg0, listaDeTareas.get(0).getNombre());
         assertEquals(arg1, listaDeTareas.get(1).getNombre());
         assertEquals(arg2, listaDeTareas.get(2).getNombre());
@@ -173,10 +175,10 @@ public class MyStepdefs {
     @Given("que hay un proyecto con las {string} con el estado {string} y {string} con estado {string}")
     public void queHayUnProyectoConLasConElEstadoYConEstado(String arg0, String arg1, String arg2, String arg3) {
         proyecto = new Proyecto();
-        var tarea1 = new Tarea(arg0);
+        Tarea tarea1 = new Tarea(arg0);
         tarea1.cambiar_estado(arg1);
 
-        var tarea2 = new Tarea(arg3);
+        Tarea tarea2 = new Tarea(arg3);
         tarea2.cambiar_estado(arg3);
 
         proyecto.add_tarea(tarea1);
@@ -189,8 +191,8 @@ public class MyStepdefs {
 
     }
 
-    @Then("se mostrarán la tarea {string}")
-    public void seMostraránLaTarea(String arg0) {
+    @Then("se mostraran la tarea {string}")
+    public void seMostraranLaTarea(String arg0) {
         assertEquals(arg0, tarea_busqueda_por_estado.get(0).getNombre());
     }
 
@@ -198,10 +200,10 @@ public class MyStepdefs {
     public void queHayUnProyectoConLasTareasConPrioridadYOtraConPrioridad(String arg0, String arg1, String arg2, String arg3, String arg4) {
         proyecto = new Proyecto();
 
-        var tarea1 = new Tarea(arg1);
+        Tarea tarea1 = new Tarea(arg1);
         tarea1.cambiar_prioridad(arg2);
 
-        var tarea2 = new Tarea(arg3);
+        Tarea tarea2 = new Tarea(arg3);
         tarea2.cambiar_prioridad(arg4);
 
         proyecto.add_tarea(tarea1);
@@ -215,8 +217,42 @@ public class MyStepdefs {
 
     }
 
-    @Then("se mostrarán las tarea {string}")
-    public void seMostraránLasTarea(String arg0) {
+    @Then("se mostraran las tarea {string}")
+    public void seMostraranLasTarea(String arg0) {
         assertEquals(arg0, tarea_busqueda_por_prioridad.get(0).getNombre());
     }
+    
+    @When("solicito crear una tarea, en un proyecto llamado {string}, objetivo {string}, prioridad {string} y descripcion {string}")
+    public void crearTarea(String unNombre, String unObjetivo, String unaPrioridad, String unaDescripcion) {
+    	tarea = new Tarea(unNombre, unaDescripcion, unObjetivo, unaPrioridad);
+    }
+    
+    @Then("sera creado un proyecto con el nombre {string}, el objetivo {string}, prioridad {string}, descripcion {string} y con la fecha de creacion de hoy")
+    public void verificarTarea(String unNombre, String unObjetivo, String unaPrioridad, String unaDescripcion) {
+    	 Date fecha = new Date();
+    	 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+    	 String hoy = formatter.format(fecha);
+    	 
+    	 assertEquals(tarea.getNombre(), unNombre);
+    	 assertEquals(tarea.getObjetivo(), unObjetivo);
+    	 assertEquals(tarea.getPrioridad(), unaPrioridad);
+    	 assertEquals(tarea.getFechaCreacion(),hoy);
+    }
+    
+    @Given("hay un proyecto {string} con una tarea llamada {string} con estado {string}")
+    public void  proyectoBorrarTarea(String unNombre, String unNombreDeTarea, String unEstado) {
+    	proyecto = new Proyecto(unNombre);
+    	proyecto.add_tarea(new Tarea (unNombre, "Descripcion", "objetivo", "Alta"));
+    }
+    
+    @When("solicito borrar la tarea {string}")
+    public void BorrarUnaTarea(String unNombre) {
+    	proyecto.borrarTarea(unNombre);
+    }
+    
+    @Then("se eliminara la tara {string}")
+    public void eliminarUnaTarea(String unNombre) {
+    	assertFalse(proyecto.existeTarea(unNombre));
+    }
+    
 }

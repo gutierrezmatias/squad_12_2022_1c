@@ -99,7 +99,7 @@ public class Proyecto {
     }
 
     public void add_tarea(Tarea tarea) {
-        this.tareas.add(tarea);
+        if (estado == "Activo") this.tareas.add(tarea);
     }
 
     public List<Tarea> getTareas() {
@@ -159,18 +159,32 @@ public class Proyecto {
     }
 
 	public void borrarTarea(String unNombre) {
-		for (Tarea unaTarea: tareas) {
-			if (unaTarea.getNombre().equals(unNombre)) tareas.remove(unaTarea);
+		if (estado.equals("Activo")) {
+			for (Tarea unaTarea: tareas) {
+				if (unaTarea.getNombre().equals(unNombre) && estado.equals("Activo")) unaTarea.eliminar();
+			}
 		}
-		
 	}
 
 	public boolean existeTarea(String unNombre) {
 		for (Tarea unaTarea: tareas) {
 			if (unaTarea.getNombre().equals(unNombre)) return true;
+			
 		}
-		
 		return false;
-		
+	}
+	
+	public void finalizar() {
+		estado = "Finalizado";
+		for (Tarea unaTarea: tareas) {
+			unaTarea.finalizar();
+		}
+	}
+
+	public Tarea getTarea(String unNombreDeTarea) {
+		for (Tarea unaTarea: tareas) {
+			if (unaTarea.getNombre().equals(unNombreDeTarea)) return unaTarea;
+		}
+		return null;
 	}
 }

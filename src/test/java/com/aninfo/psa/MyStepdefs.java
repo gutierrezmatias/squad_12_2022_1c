@@ -213,8 +213,6 @@ public class MyStepdefs {
     @When("solicito buscar las tareas con prioridad: {string}")
     public void solicitoBuscarLasTareasConPrioridad(String arg0) {
         tarea_busqueda_por_prioridad = proyecto.buscar_tarea_por_prioridad(arg0);
-
-
     }
 
     @Then("se mostraran las tarea {string}")
@@ -222,37 +220,5 @@ public class MyStepdefs {
         assertEquals(arg0, tarea_busqueda_por_prioridad.get(0).getNombre());
     }
     
-    @When("solicito crear una tarea, en un proyecto llamado {string}, objetivo {string}, prioridad {string} y descripcion {string}")
-    public void crearTarea(String unNombre, String unObjetivo, String unaPrioridad, String unaDescripcion) {
-    	tarea = new Tarea(unNombre, unaDescripcion, unObjetivo, unaPrioridad);
-    }
-    
-    @Then("sera creado un proyecto con el nombre {string}, el objetivo {string}, prioridad {string}, descripcion {string} y con la fecha de creacion de hoy")
-    public void verificarTarea(String unNombre, String unObjetivo, String unaPrioridad, String unaDescripcion) {
-    	 Date fecha = new Date();
-    	 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-    	 String hoy = formatter.format(fecha);
-    	 
-    	 assertEquals(tarea.getNombre(), unNombre);
-    	 assertEquals(tarea.getObjetivo(), unObjetivo);
-    	 assertEquals(tarea.getPrioridad(), unaPrioridad);
-    	 assertEquals(tarea.getFechaCreacion(),hoy);
-    }
-    
-    @Given("hay un proyecto {string} con una tarea llamada {string} con estado {string}")
-    public void  proyectoBorrarTarea(String unNombre, String unNombreDeTarea, String unEstado) {
-    	proyecto = new Proyecto(unNombre);
-    	proyecto.add_tarea(new Tarea (unNombre, "Descripcion", "objetivo", "Alta"));
-    }
-    
-    @When("solicito borrar la tarea {string}")
-    public void BorrarUnaTarea(String unNombre) {
-    	proyecto.borrarTarea(unNombre);
-    }
-    
-    @Then("se eliminara la tara {string}")
-    public void eliminarUnaTarea(String unNombre) {
-    	assertFalse(proyecto.existeTarea(unNombre));
-    }
-    
+
 }

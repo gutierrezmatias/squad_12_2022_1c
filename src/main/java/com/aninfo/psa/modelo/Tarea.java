@@ -96,4 +96,13 @@ public class Tarea {
 	public Object getObjetivo() {
 		return objetivo;
 	}
+
+	public void eliminar() {
+		estado = "eliminada"; 
+		
+	}
+
+	public void finalizar() {
+		estado = "finalizada";
+	}
 }

@@ -5,7 +5,6 @@ import com.aninfo.psa.Repository.TareasRepository;
 import com.aninfo.psa.excepciones.LaTareaTieneAsignadaUnProyecto;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Tarea;
-import io.swagger.models.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;

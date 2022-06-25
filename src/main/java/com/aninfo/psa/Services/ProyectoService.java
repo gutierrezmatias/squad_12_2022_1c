@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProyectoService {
@@ -30,7 +31,7 @@ public class ProyectoService {
         return proyectosRepository.findAll();
     }
 
-    public Optional<Proyecto> buscarPorNombre(Long id){
+    public Optional<Proyecto> buscarPorID(Long id){
         return proyectosRepository.findById(id);
     }
 
@@ -43,7 +44,7 @@ public class ProyectoService {
     }
 
     public List<Tarea> get_tareas(Long id) {
-        return this.buscarPorNombre(id).get().getTareas();
+        return this.buscarPorID(id).get().getTareas();
     }
 
     @Transactional
@@ -71,5 +72,12 @@ public class ProyectoService {
         proyectosRepository.save(proyecto);
 
         return proyecto;
+    }
+
+    public List<Proyecto> BuscarPorNombre(String nombre) {
+        return proyectosRepository
+                .findAll().stream()
+                .filter(proyecto -> proyecto.getNombre().contains(nombre))
+                .collect(Collectors.toList());
     }
 }

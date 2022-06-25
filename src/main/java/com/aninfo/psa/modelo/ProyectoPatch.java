@@ -1,23 +1,24 @@
 package com.aninfo.psa.modelo;
 
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ProyectoPatch {
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private String alcance;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private String estado;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private String nombre;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private String version;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private String descripcion;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private String cliente;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private Recurso lider;
-    @ApiModelProperty(required = false)
+    @Schema(required = false)
     private Integer fecha_fin;
 
     public ProyectoPatch(){}

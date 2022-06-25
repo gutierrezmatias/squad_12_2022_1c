@@ -1,15 +1,16 @@
 package com.aninfo.psa.modelo;
 
 
-import io.swagger.annotations.ApiModelProperty;
-import springfox.documentation.annotations.ApiIgnore;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.*;
 
-@ApiIgnore
+
 @Entity
 public class Tarea {
     @Id
@@ -27,7 +28,7 @@ public class Tarea {
     private String objetivo;
 
 
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Long ProyectoID;
 
     public Tarea(String unNombre, String unaDescripcion, String unObjetivo, String unaPrioridad){
@@ -90,4 +91,18 @@ public class Tarea {
 
     public Long getProyectoID(){return this.ProyectoID;}
 
+    public void finalizar() {
+        this.estado = "Finalizado";
+    }
+
+    public void eliminar() {
+        this.estado = "Eliminado";
+    }
+
+    public void actualizar_proyecto_id(Object o) {
+    }
+
+    public String getobjetivo() {
+        return this.objetivo;
+    }
 }

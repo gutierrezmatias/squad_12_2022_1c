@@ -1,6 +1,7 @@
 package com.aninfo.psa.modelo;
 
-import io.swagger.annotations.ApiModelProperty;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 
@@ -8,7 +9,7 @@ import javax.persistence.*;
 public class Recurso {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Long id;
     private String name;
 

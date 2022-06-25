@@ -34,7 +34,7 @@ public class testCrearTarea {
     	 
     	 assertEquals(proyecto.getNombre(), unNombreDeProyecto);
     	 assertEquals(proyecto.getTarea(unNombreDeTarea).getNombre(), unNombreDeTarea);
-    	 assertEquals(proyecto.getTarea(unNombreDeTarea).getObjetivo(), unObjetivoDeTarea);
+    	 assertEquals(proyecto.getTarea(unNombreDeTarea).getobjetivo(), unObjetivoDeTarea);
     	 assertEquals(proyecto.getTarea(unNombreDeTarea).getPrioridad(), unaPrioridadDeTarea);
     	 assertEquals(proyecto.getTarea(unNombreDeTarea).getFechaCreacion(),hoy);
     }

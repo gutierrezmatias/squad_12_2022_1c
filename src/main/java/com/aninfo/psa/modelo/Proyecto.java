@@ -1,14 +1,14 @@
 package com.aninfo.psa.modelo;
 
-import io.swagger.annotations.ApiModelProperty;
-import springfox.documentation.annotations.ApiIgnore;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@ApiIgnore
+
 @Entity
 public class Proyecto {
 
@@ -25,7 +25,7 @@ public class Proyecto {
     private String version;
     private String descripcion;
     @OneToMany(cascade = {CascadeType.DETACH})
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private List<Tarea> tareas = new ArrayList<Tarea>();
 
     /*@OneToMany(cascade = {CascadeType.ALL})
@@ -38,7 +38,7 @@ public class Proyecto {
     private int fecha_fin;
     private String estado = "Activo";
     @OneToOne(cascade = {CascadeType.ALL})
-    @ApiModelProperty(required = true)
+    @Schema(required = true)
     private Recurso lider;
 
 
@@ -113,7 +113,7 @@ public class Proyecto {
         return this.tareas.stream().map(tarea -> tarea.getRecursoAsignado()).collect(Collectors.toList());
     }
 
-    public long getid(){
+    public Long getid(){
         return this.id;
     }
 

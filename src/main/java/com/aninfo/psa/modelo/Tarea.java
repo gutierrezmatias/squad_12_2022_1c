@@ -90,19 +90,4 @@ public class Tarea {
 
     public Long getProyectoID(){return this.ProyectoID;}
 
-    public void actualizar_proyecto_id(Long getid) {
-        this.ProyectoID = getid;
-    }
-	public Object getObjetivo() {
-		return objetivo;
-	}
-
-	public void eliminar() {
-		estado = "eliminada"; 
-		
-	}
-
-	public void finalizar() {
-		estado = "finalizada";
-	}
 }

@@ -26,7 +26,7 @@ import java.util.Optional;
 @RestController
 @EnableSwagger2
 @SpringBootApplication
-public class PsaProyectosApplication {a
+public class PsaProyectosApplication {
 
 	@Autowired
 	ProyectoService proyectoService;

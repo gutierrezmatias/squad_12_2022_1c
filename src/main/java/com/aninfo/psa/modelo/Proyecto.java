@@ -36,7 +36,7 @@ public class Proyecto {
     private int fecha_inicio;
 
     private int fecha_fin;
-    private String estado = "Activo";
+    private String estado = "Pendiente";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
     private Recurso lider;

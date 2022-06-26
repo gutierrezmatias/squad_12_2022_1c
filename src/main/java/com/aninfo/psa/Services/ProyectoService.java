@@ -58,9 +58,10 @@ public class ProyectoService {
         proyecto.recalcular_horas_estimadas();
         return optionalTarea.get();
     }
+    
     @Transactional
     public void eliminar_tarea(Long id, Long tarea_id) {
-        var proyecto = proyectosRepository.findById(id).get();
+        Proyecto proyecto = proyectosRepository.findById(id).get();
         proyecto.remover_tarea(tarea_id);
         proyecto.recalcular_horas_estimadas();
         tareasRepository.findById(tarea_id).get().actualizar_proyecto_id(null);

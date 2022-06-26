@@ -35,10 +35,10 @@ public class Test_asignar_tarea {
         assertEquals(arg0, proyectoService.buscarPorID(id).get().getTareas().get(0).getNombre());
 
     }
-
+ 
     @Transactional
-    @Then("la tarea {string} quedará asociada al proyecto {string}")
-    public void laTareaQuedaráAsociadaAlProyecto(String arg0, String arg1) {
+    @Then("la tarea {string} quedara asociada al proyecto {string}")
+    public void laTareaQuedaraAsociadaAlProyecto(String arg0, String arg1) {
         Long id = Long.valueOf(1);
         Long id_tarea = Long.valueOf(1);
         assertEquals(arg0, proyectoService.buscarPorID(id)

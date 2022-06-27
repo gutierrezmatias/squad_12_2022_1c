@@ -53,8 +53,21 @@ public class ProyectoService {
     @Transactional
     public Tarea asignar_tarea(Proyecto proyecto, Long id) {
         Optional<Tarea> optionalTarea = tareasRepository.findById(id);
+
         if (!optionalTarea.isPresent()){
             throw new NoExisteLaTareaBuscadaError();
+        }
+        if (proyecto.getEstado().equals("Interrumpido")){
+            return  optionalTarea.get();
+        }
+        if (optionalTarea.get().getProyectoID() == null) {
+            Optional<Proyecto> proyecto_anterior = proyectosRepository.findById(optionalTarea.get().getProyectoID());
+
+            if (proyecto_anterior.isPresent()) {
+                if (proyecto_anterior.get().getEstado().equals("En curso") & !optionalTarea.get().getEstado().equals("Pendiente")) {
+                    return optionalTarea.get();
+                }
+            }
         }
         optionalTarea.get().actualizar_proyecto_id(proyecto.getid());
         proyecto.add_tarea(optionalTarea.get());
@@ -115,4 +128,8 @@ public class ProyectoService {
 		}
 		
 	}
+
+    public void asignar_estado(Long valueOf, String arg1) {
+        this.proyectosRepository.findById(valueOf).get().setEstado(arg1);
+    }
 }

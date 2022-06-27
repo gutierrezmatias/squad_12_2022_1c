@@ -22,6 +22,9 @@ public class ProyectoService {
 
     @Autowired
     private TareasRepository tareasRepository;
+    
+    @Autowired
+    private TareaService tareaService;
 
     public Proyecto crearProyecto(Proyecto proyecto){
         return proyectosRepository.save(proyecto);
@@ -81,4 +84,35 @@ public class ProyectoService {
                 .filter(proyecto -> proyecto.getNombre().contains(nombre))
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+	public void finalizar(Long IdProyecto) {
+    	
+    	Optional<Proyecto> proyectoAFinalizarOp = proyectosRepository.findById(IdProyecto);
+    	
+    	if (proyectoAFinalizarOp.isPresent()) {
+    		Proyecto proyectoAFinalizar = proyectoAFinalizarOp.get();
+    		proyectoAFinalizar.setEstado("Finalizado");
+    		for (Tarea unaTarea: proyectoAFinalizar.getTareas()) {
+    			tareaService.finalizar(unaTarea.getId());
+    		}
+    				
+    	}
+		
+	}
+
+    @Transactional
+	public void eliminarTarea(Long unIdDeProyecto, Long unIdDeTarea) {
+		Optional<Proyecto> unProyectoOp = proyectosRepository.findById(unIdDeProyecto);
+		
+		if (unProyectoOp.isPresent()) {
+			Proyecto proyectoAEliminarTarea = unProyectoOp.get();
+			if (proyectoAEliminarTarea.getEstado() == "En curso" || proyectoAEliminarTarea.getEstado() == "Pendiente") {
+				tareaService.eliminarTarea(unIdDeTarea);
+				proyectosRepository.save(proyectoAEliminarTarea);
+			}
+	
+		}
+		
+	}
 }

@@ -187,4 +187,9 @@ public class Proyecto {
 		}
 		return null;
 	}
+
+	public void setEstado(String unEstado) {
+		estado = unEstado;
+		
+	}
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 @Service
 public class TareaService {
     @Autowired
@@ -36,4 +38,24 @@ public class TareaService {
         }
         tareasRepository.deleteById(id);
     }
+
+    @Transactional
+	public void eliminarTarea(Long id) {
+		Optional<Tarea> tareaAEliminar = tareasRepository.findById(id);
+		if (tareaAEliminar.isPresent()) {
+			tareaAEliminar.get().setEstado("Eliminada");
+			tareasRepository.save(tareaAEliminar.get());
+		}
+		
+	}
+
+    @Transactional
+	public void finalizar(Long id) {
+    	Optional<Tarea> tareaAFinalizar = tareasRepository.findById(id);
+		if (tareaAFinalizar.isPresent()) {
+			tareaAFinalizar.get().setEstado("Finalizada");
+			tareasRepository.save(tareaAFinalizar.get());
+		}
+		
+	}
 }

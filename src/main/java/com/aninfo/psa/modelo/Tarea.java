@@ -22,7 +22,7 @@ public class Tarea {
     private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
     private Recurso recursoAsignado;
-    private String estado;
+    private String estado= "Pendiente";
     private String prioridad;
     private String descripcion;
     private String objetivo;
@@ -92,11 +92,11 @@ public class Tarea {
     public Long getProyectoID(){return this.ProyectoID;}
 
     public void finalizar() {
-        this.estado = "Finalizado";
+        this.estado = "Finalizada";
     }
 
-    public void eliminar() {
-        this.estado = "Eliminado";
+    public void setEstado(String unEstado) {
+        this.estado = unEstado;
     }
 
     public void actualizar_proyecto_id(Object o) {

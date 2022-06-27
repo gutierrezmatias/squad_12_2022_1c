@@ -47,7 +47,7 @@ public class testCrearProyecto {
 	    	assertEquals(proyectoPrueba.getAlcance(), unAlcanceDeProyecto);
 	    	assertEquals(proyectoPrueba.getVersion(), unaVersionDelProducto);
 	    	assertEquals(proyectoPrueba.getDescripcion(), unaDescripcionDelProyecto);
-	    	assertEquals(proyectoPrueba.getEstado(), unEstadoDeProyecto); 	
+	    	assertEquals(proyectoPrueba.getEstado(), "Pendiente");
 	    }
 	    
 	    

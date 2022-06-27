@@ -99,7 +99,7 @@ public class Proyecto {
     }
 
     public void add_tarea(Tarea tarea) {
-        if (estado == "Activo") this.tareas.add(tarea);
+        if (estado.equals("Pendiente") || estado.equals("En curso")) this.tareas.add(tarea);
     }
 
     public List<Tarea> getTareas() {
@@ -159,9 +159,10 @@ public class Proyecto {
     }
 
 	public void borrarTarea(String unNombre) {
-		if (estado.equals("Activo")) {
+		if (estado.equals("En curso") || estado.equals("Pendiente")) {
 			for (Tarea unaTarea: tareas) {
-				if (unaTarea.getNombre().equals(unNombre) && estado.equals("Activo")) unaTarea.eliminar();
+				if (unaTarea.getNombre().equals(unNombre) && (unaTarea.getEstado().equals("En curso") || unaTarea.getEstado().equals("Pendiente")))
+                    unaTarea.eliminar();
 			}
 		}
 	}

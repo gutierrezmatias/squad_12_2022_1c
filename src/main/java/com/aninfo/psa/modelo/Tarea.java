@@ -22,11 +22,11 @@ public class Tarea {
     private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
     private Recurso recursoAsignado;
-    private String estado= "Pendiente";
+    private String estado;
     private String prioridad;
     private String descripcion;
     private String objetivo;
-
+    private String ticketAsociado;
 
     @Schema(hidden = true)
     private Long ProyectoID;
@@ -41,7 +41,7 @@ public class Tarea {
       descripcion = unaDescripcion;
       objetivo = unObjetivo;
       prioridad = unaPrioridad;
-
+      estado = "Pendiente";
     }
     
     public Tarea(int unaEstimacion) {
@@ -95,8 +95,8 @@ public class Tarea {
         this.estado = "Finalizada";
     }
 
-    public void setEstado(String unEstado) {
-        this.estado = unEstado;
+    public void eliminar() {
+        this.estado = "Eliminada";
     }
 
     public void actualizar_proyecto_id(Object o) {
@@ -104,5 +104,9 @@ public class Tarea {
 
     public String getObjetivo() {
         return this.objetivo;
+    }
+
+    public void setEstado(String unEstado) {
+        this.estado = unEstado;
     }
 }

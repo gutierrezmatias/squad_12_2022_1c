@@ -20,6 +20,7 @@ public class Test_asignar_tarea {
     TareaService tareaService;
 
 
+    @Transactional
     @Given("que hay un proyecto {string}")
     public void queHayUnProyecto(String arg0) {
         proyectoService.crearProyecto(new Proyecto(arg0));
@@ -69,6 +70,7 @@ public class Test_asignar_tarea {
         assertTrue(proyectoService.buscarPorID(Long.valueOf(1)).get().getTareas().isEmpty());
     }
 
+    @Transactional
     @Given("que hay una tarea asignada a un proyecto con un estado distinto de {string}")
     public void queHayUnaTareaAsignadaAUnProyectoConUnEstadoDistintoDe(String arg0) {
         tareaService.crear_tarea(new Tarea());
@@ -77,13 +79,14 @@ public class Test_asignar_tarea {
 
     }
 
+    @Transactional
     @When("asigne la tarea a un proyecto con estado {string}")
     public void asigneLaTareaAUnProyectoConEstado(String arg0) {
         proyectoService.crearProyecto(new Proyecto());
         tareaService.obtener_tarea(Long.valueOf(1)).get().setEstado(arg0);
         proyectoService.asignar_tarea(proyectoService.buscarPorID(Long.valueOf(2)).get(),Long.valueOf(1));
     }
-
+    @Transactional
     @Then("la tarea no se asociara al proyecto")
     public void laTareaNoSeAsociaraAlProyecto() {
         assertTrue(proyectoService.buscarPorID(Long.valueOf(1)).get().getTareas().isEmpty());

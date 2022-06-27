@@ -2,10 +2,13 @@ package com.aninfo.psa.modelo;
 
 
 
+import io.cucumber.java.bs.A;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -28,6 +31,8 @@ public class Tarea {
     private String objetivo;
     private String ticketAsociado;
 
+    private ArrayList<Recurso> recursosAsignados;
+
     @Schema(hidden = true)
     private Long ProyectoID;
 
@@ -42,6 +47,7 @@ public class Tarea {
       objetivo = unObjetivo;
       prioridad = unaPrioridad;
       estado = "Pendiente";
+      recursosAsignados = new ArrayList<>();
     }
     
     public Tarea(int unaEstimacion) {
@@ -87,6 +93,7 @@ public class Tarea {
 
     public String getFechaCreacion(){return this.fechaCreacion;}
 
+    //usado en proyecto
     public Recurso getRecursoAsignado(){return this.recursoAsignado;}
 
     public Long getProyectoID(){return this.ProyectoID;}
@@ -108,5 +115,17 @@ public class Tarea {
 
     public void setEstado(String unEstado) {
         this.estado = unEstado;
+    }
+
+    public void asignarResponsable(Recurso empleado){
+
+        if(estado.equals("Pendiente") || estado.equals("En curso")) {
+            recursosAsignados.add(empleado);
+            if(estado.equals("Pendiente")) estado = "En curso";
+        }
+    }
+
+    public ArrayList<Recurso> getRecursosAsignados() {
+        return recursosAsignados;
     }
 }

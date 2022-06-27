@@ -13,8 +13,6 @@ public class Recurso {
     private Long id;
     private String name;
 
-
-
     public Long getID(){
         return this.id;
     }

@@ -106,6 +106,7 @@ public class Proyecto {
         return this.tareas;
     }
 
+
     public List<Recurso> lista_Recursos(){
         if (this.tareas == null){
             return new ArrayList<Recurso>();

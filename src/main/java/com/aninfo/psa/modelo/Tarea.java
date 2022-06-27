@@ -102,7 +102,7 @@ public class Tarea {
     public void actualizar_proyecto_id(Object o) {
     }
 
-    public String getobjetivo() {
+    public String getObjetivo() {
         return this.objetivo;
     }
 }

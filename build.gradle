@@ -35,13 +35,19 @@ dependencies {
 	implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.9'
 	implementation group: 'org.springframework', name: 'spring-context', version: '5.3.21'
 
-
-
 }
+
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+
+test {
+	useJUnitPlatform()
+}
+
+
 task cucumber() {
 	dependsOn assemble, testClasses
 	doLast {
@@ -52,6 +58,7 @@ task cucumber() {
 		}
 	}
 }
+
 configurations {
 	cucumberRuntime {
 		extendsFrom testImplementation

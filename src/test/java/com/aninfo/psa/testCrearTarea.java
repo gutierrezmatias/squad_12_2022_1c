@@ -35,7 +35,7 @@ public class testCrearTarea {
 	
 	@Given("hay un proyecto llamado {string} con estado {string}")
 	public void hay_un_proyecto_llamado_con_estado(String unNombreDeProyecto, String unEstadoDeProyecto) {
-		proyecto = proyectoService.crearProyecto(new Proyecto(unNombreDeProyecto, "Implementacion", "ClienteProyecto", "Algún Alcace", "2.0", "Proyecto para la creacion de tareas"));
+		proyecto = proyectoService.crearProyecto(new Proyecto(unNombreDeProyecto, "Implementacion", "ClienteProyecto", "Algun Alcace", "2.0", "Proyecto para la creacion de tareas"));
 	}
 
 

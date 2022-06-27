@@ -6,8 +6,10 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/resources"
-        ,glue={"src/test/java/com/aninfo/psa/"}
+        features = "src/test/resources"
+        ,glue={"com/aninfo/psa"}
+        ,publish = true
 )
 public class test_runner {
+
 }

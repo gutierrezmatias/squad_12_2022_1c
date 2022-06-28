@@ -49,6 +49,7 @@ public class Proyecto {
         this.alcance = alcance;
         this.version = version;
         this.descripcion = descripcion;
+        this.tareas = new ArrayList<>();
     }
    
     public Proyecto(){}
@@ -93,25 +94,23 @@ public class Proyecto {
         this.lider = recurso;
     }
 
-
     public Recurso getLider() {
         return this.lider;
     }
 
     public void add_tarea(Tarea tarea) {
-        if (estado.equals("Pendiente") || estado.equals("En curso")) this.tareas.add(tarea);
+        if ((estado.equals("Pendiente") || estado.equals("En curso")) ) tareas.add(tarea);
     }
 
     public List<Tarea> getTareas() {
         return this.tareas;
     }
 
-
     public List<Recurso> lista_Recursos(){
         if (this.tareas == null){
             return new ArrayList<Recurso>();
         }
-        return this.tareas.stream().map(tarea -> tarea.getRecursoAsignado()).collect(Collectors.toList());
+        return this.tareas.stream().map(Tarea::getRecursoAsignado).collect(Collectors.toList());
     }
 
     public Long getid(){
@@ -192,6 +191,5 @@ public class Proyecto {
 
 	public void setEstado(String unEstado) {
 		estado = unEstado;
-		
 	}
 }

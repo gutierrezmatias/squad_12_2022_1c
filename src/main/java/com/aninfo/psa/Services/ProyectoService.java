@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProyectoService {
+
     @Autowired
     private ProyectosRepository proyectosRepository;
 
@@ -54,9 +55,10 @@ public class ProyectoService {
     public Tarea asignar_tarea(Proyecto proyecto, Long id) {
         Optional<Tarea> optionalTarea = tareasRepository.findById(id);
 
-        if (!optionalTarea.isPresent()){
+        if (optionalTarea.isEmpty()){
             throw new NoExisteLaTareaBuscadaError();
         }
+
         if (proyecto.getEstado().equals("Interrumpido")){
             return  optionalTarea.get();
         }
@@ -69,6 +71,7 @@ public class ProyectoService {
                 }
             }
         }
+
         optionalTarea.get().actualizar_proyecto_id(proyecto.getid());
         proyecto.add_tarea(optionalTarea.get());
         proyecto.recalcular_horas_estimadas();
@@ -120,7 +123,7 @@ public class ProyectoService {
 		
 		if (unProyectoOp.isPresent()) {
 			Proyecto proyectoAEliminarTarea = unProyectoOp.get();
-			if (proyectoAEliminarTarea.getEstado() == "En curso" || proyectoAEliminarTarea.getEstado() == "Pendiente") {
+			if (proyectoAEliminarTarea.getEstado().equals("En curso") || proyectoAEliminarTarea.getEstado().equals("Pendiente")) {
 				tareaService.eliminarTarea(unIdDeTarea);
 				proyectosRepository.save(proyectoAEliminarTarea);
 			}

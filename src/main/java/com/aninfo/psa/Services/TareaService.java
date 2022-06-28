@@ -58,4 +58,13 @@ public class TareaService {
 		}
 		
 	}
+    
+    @Transactional
+	public void asignar_estado(Long id, String unEstado) {
+		Optional<Tarea> tareaACambiarEstado = tareasRepository.findById(id);
+		if (tareaACambiarEstado.isPresent()) {
+			tareaACambiarEstado.get().setEstado(unEstado);
+			tareasRepository.save(tareaACambiarEstado.get());
+		}
+	}
 }

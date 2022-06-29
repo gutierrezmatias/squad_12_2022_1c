@@ -62,6 +62,7 @@ public class ProyectoService {
         if (proyecto.getEstado().equals("Interrumpido")){
             return  optionalTarea.get();
         }
+
         if (optionalTarea.get().getProyectoID() != null) {
             Optional<Proyecto> proyecto_anterior = proyectosRepository.findById(optionalTarea.get().getProyectoID());
 

@@ -88,6 +88,9 @@ public class Proyecto {
 
     public void dar_baja() {
         this.estado = "Interrumpido";
+        for(Tarea tareaAsignada : tareas){
+            tareaAsignada.eliminar();
+        }
     }
 
     public void asignar_lider(Recurso recurso) {

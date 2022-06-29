@@ -1,6 +1,7 @@
 package com.aninfo.psa.modelo;
 
 
+import com.aninfo.psa.Services.EstadoProyectos;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Proyecto {
     private int fecha_inicio;
 
     private int fecha_fin;
+
     private String estado = "Pendiente";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
@@ -180,7 +182,7 @@ public class Proyecto {
 	}
 	
 	public void finalizar() {
-		estado = "Finalizado";
+		this.estado = "Finalizado";
 		for (Tarea unaTarea: tareas) {
 			unaTarea.finalizar();
 		}
@@ -196,4 +198,5 @@ public class Proyecto {
 	public void setEstado(String unEstado) {
 		estado = unEstado;
 	}
+
 }

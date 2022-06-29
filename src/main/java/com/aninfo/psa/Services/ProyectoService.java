@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +32,30 @@ public class ProyectoService {
         return proyectosRepository.save(proyecto);
     }
 
-    public Collection<Proyecto> obtenerProyectos(){
-        return proyectosRepository.findAll();
+    public List<Proyecto> obtenerProyectos(){
+        List<Proyecto> lista = proyectosRepository.findAll();
+        List ordenada = lista.stream()
+                .sorted(((o1, o2) -> this.comparator(o1,o2)))
+                .collect(Collectors.toList());
+
+        return new ArrayList<Proyecto>(ordenada);
+
+    }
+
+    private int comparator(Proyecto o1, Proyecto o2) {
+        EstadoProyectos estado1;
+        EstadoProyectos estado2;
+        if ("En curso".equals(o1.getEstado())) {
+            estado1 = EstadoProyectos.EnCurso;
+        } else {
+            estado1 = EstadoProyectos.valueOf(o1.getEstado().toUpperCase());
+        }
+        if ("En curso".equals(o2.getEstado())) {
+            estado2 = EstadoProyectos.EnCurso;
+        } else {
+            estado2 = EstadoProyectos.valueOf(o2.getEstado().toUpperCase());
+        }
+        return estado1.compareTo(estado2);
     }
 
     public Optional<Proyecto> buscarPorID(Long id){
@@ -135,5 +158,12 @@ public class ProyectoService {
 
     public void asignar_estado(Long valueOf, String arg1) {
         this.proyectosRepository.findById(valueOf).get().setEstado(arg1);
+    }
+
+    public List<Proyecto> buscadorPorString(String arg0) {
+        return proyectosRepository.findAll()
+                .stream()
+                .filter(proyecto -> proyecto.getNombre().toLowerCase().contains(arg0.toLowerCase()))
+                .collect(Collectors.toList());
     }
 }

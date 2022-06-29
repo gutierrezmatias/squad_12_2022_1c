@@ -20,7 +20,7 @@ public class ListaDeProyectos {
         this.lista.add(proyecto1);
     }
 
-    public ArrayList<Proyecto> listado_proyectos() {
+    public List<Proyecto> listado_proyectos() {
         List ordenada = lista.stream()
                 .sorted(((o1, o2) -> o1.getEstado().compareTo(o2.getEstado())))
                 .collect(Collectors.toList());

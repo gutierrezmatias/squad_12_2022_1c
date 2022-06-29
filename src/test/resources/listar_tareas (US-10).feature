@@ -6,8 +6,8 @@ Feature: Listar tareas {US-10}
     Then se mostrarán las tareas: "Tarea-01", "Tarea-02", "Tarea-03"
 
   Scenario: Existe una lista de tareas asignadas a un proyecto
-    Given que hay un proyecto con las "Tarea-01" con el estado "en curso" y "Tarea-02" con estado "Finalizada"
-    When solicito buscar una tarea "en curso"
+    Given que hay un proyecto con las "Tarea-01" con el estado "En curso" y "Tarea-02" con estado "Finalizada"
+    When solicito buscar una tarea "En curso"
     Then se mostrarán la tarea "Tarea-01"
 
   Scenario: Existe una lista de tareas asignadas a un proyecto

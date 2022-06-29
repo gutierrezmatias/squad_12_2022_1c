@@ -26,7 +26,7 @@ public class Tarea {
     @OneToOne(cascade = {CascadeType.ALL})
     private Recurso recursoAsignado;
     private String estado = "Pendiente";
-    private String prioridad;
+    private String prioridad = "baja";
     private String descripcion;
     private String objetivo;
     private String ticketAsociado;

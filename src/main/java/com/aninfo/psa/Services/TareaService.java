@@ -52,8 +52,8 @@ public class TareaService {
     @Transactional
 	public void finalizar(Long id) {
     	Optional<Tarea> tareaAFinalizar = tareasRepository.findById(id);
-		if (tareaAFinalizar.isPresent()) {
-			tareaAFinalizar.get().setEstado("Finalizada");
+		if (tareaAFinalizar.isPresent() && tareaAFinalizar.get().getEstado() != "Pendiente" && tareaAFinalizar.get().getEstado() != "Finalizada") {
+			tareaAFinalizar.get().finalizar();
 			tareasRepository.save(tareaAFinalizar.get());
 		}
 		

@@ -34,22 +34,29 @@ public class testFinalizarTarea {
 	    proyectoService.asignar_estado(unProyecto.getid(), "En curso");
 	}
 	
-	@Given("el proyecto tiene una tarea llamada {string} con el estado {string}")
-	public void el_proyecto_tiene_una_tarea_llamada_con_el_estado(String unNombreTarea, String unEstadoTarea) {
-	    unaTarea = tareaService.crear_tarea(new Tarea(unNombreTarea, "Descripcion de tarea", "Objetivo de tarea", "Prioridad de tarea" ));
-	    tareaService.asignar_estado(unaTarea.getId(), "En curso" );
+	
+	@Given("el proyecto tiene una tarea llamada {string} en curso\"")
+	public void el_proyecto_tiene_una_tarea_llamada_en_curso(String unNombreTarea) {
+		unaTarea = tareaService.crear_tarea(new Tarea(unNombreTarea, "Descripcion de tarea", "Objetivo de tarea", "Prioridad de tarea" ));
+		tareaService.asignar_estado(unaTarea.getId(), "En Curso");
+	}
+	
+	@Given("el proyecto tiene una tarea llamada {string} pendiente")
+	public void el_proyecto_tiene_una_tarea_llamada_pendiente(String unNombreTarea) {
+		unaTarea = tareaService.crear_tarea(new Tarea(unNombreTarea, "Descripcion de tarea", "Objetivo de tarea", "Prioridad de tarea" ));
+
 	}
 	
 	@When("finalizo la tarea {string}")
 	public void finalizo_la_tarea(String string) {
-	    tareaService.asignar_estado(unaTarea.getId(), "Finalizada");
+	    tareaService.finalizar(unaTarea.getId());
 	}
 	
 	@Then("el estado de la {string} es {string}")
-	public void el_estado_de_la_es(String string, String string2) {
+	public void el_estado_de_la_es(String string, String unEstado) {
 	   Optional<Tarea> tareaPrueba = tareaService.obtener_tarea(unaTarea.getId());
 	   
-	   if (tareaPrueba.isPresent()) assertEquals(tareaPrueba.get().getEstado(), "Finalizada");
+	   if (tareaPrueba.isPresent()) assertEquals(tareaPrueba.get().getEstado(), unEstado);
 	}
 
 

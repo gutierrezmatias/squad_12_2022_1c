@@ -103,7 +103,7 @@ public class ProyectoService {
     	
     	Optional<Proyecto> proyectoAFinalizarOp = proyectosRepository.findById(IdProyecto);
     	
-    	if (proyectoAFinalizarOp.isPresent()) {
+    	if (proyectoAFinalizarOp.isPresent() && proyectoAFinalizarOp.get().getEstado() != "Pendiente" && proyectoAFinalizarOp.get().getEstado() != "Finalizado" ) {
     		Proyecto proyectoAFinalizar = proyectoAFinalizarOp.get();
     		proyectoAFinalizar.setEstado("Finalizado");
     		for (Tarea unaTarea: proyectoAFinalizar.getTareas()) {

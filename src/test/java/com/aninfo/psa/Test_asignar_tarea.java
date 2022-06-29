@@ -37,6 +37,15 @@ public class Test_asignar_tarea {
     private Proyecto proyecto3;
     private Proyecto proyecto4;
 
+    //atributos para tests integrales
+    private Tarea tarea5;
+    private Tarea tarea6;
+    private Tarea tarea7;
+
+    private Proyecto proyecto5;
+    private Proyecto proyecto6;
+    private Proyecto proyecto7;
+
     @Transactional
     @Given("que hay un proyecto {string}")
     public void queHayUnProyecto(String nombreDeProyecto) {
@@ -118,39 +127,32 @@ public class Test_asignar_tarea {
     }
 
     //escenario 3------------------------------
-    /*
-    @Given("que hay una tarea asignada a un proyecto con nombre {string}, con un estado {string}")
-    public void que_hay_una_tarea_asignada_a_un_proyecto_con_nombre_con_un_estado(String nomnreProyecto, String estadoProyecto) {
-        tareaService.crear_tarea(new Tarea());
-        proyectoService3.crearProyecto(new Proyecto());
-        proyectoService3.buscarPorID(1L).get().setEstado(estadoProyecto);
-
-
-    }
-
-    @When("asigne la tarea con estado {string} al proyecto")
-    public void asigne_la_tarea_con_estado_al_proyecto(String estado) {
-        proyectoService.crearProyecto(new Proyecto());
-        tareaService.obtener_tarea(1L).get().setEstado(estado);
-        proyectoService.asignar_tarea(proyectoService.buscarPorID(2L).get(), 1L);
-    }
-
-    @Then("la tarea no se asociara al proyecto")
-    public void la_tarea_no_se_asociara_al_proyecto() {
-        assertTrue(proyectoService.buscarPorID(1L).get().getTareas().isEmpty());
-
-    }
-     */
-
     @Given("exista una tarea con nombre {string} asignada a un proyecto con nombre {string} con estado {string}")
     public void exista_una_tarea_con_nombre_asignada_a_un_proyecto_con_nombre_con_estado(String nomnreTarea, String nombreProyecto, String estadoProyecto) {
+
+        //integral
+        tarea5 = new Tarea(nomnreTarea, "Descripcion", "objetivo", "Alta");
+        proyecto5 = new Proyecto(nombreProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
+
+        tareaService3.crear_tarea(tarea5);
+        proyectoService3.crearProyecto(proyecto5);
+
+        assertEquals(proyectoService3.buscarPorID(1L).get(), proyecto5);
+
+        proyectoService3.asignar_tarea(proyecto5, 1L);
+
+
+        proyectoService3.buscarPorID(1L).get().setEstado(estadoProyecto);
+
+        assertEquals(proyecto5.getEstado(), estadoProyecto);
+
+        //unitario
         tarea3 = new Tarea(nomnreTarea, "Descripcion", "objetivo", "Alta");
         proyecto3 = new Proyecto(nombreProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
 
         proyecto3.add_tarea(tarea3);
 
         assertEquals(proyecto3.getTarea(tarea3.getNombre()), tarea3);
-        //proyecto3.setEstado(estadoProyecto);
 
         proyecto3.dar_baja();
 
@@ -159,6 +161,8 @@ public class Test_asignar_tarea {
 
     @Given("un proyecto con nombre {string}, con estado “En curso”")
     public void un_proyecto_con_nombre_con_estado_en_curso(String nombreNuevoProyecto) {
+
+        //unitario
         proyecto4 = new Proyecto(nombreNuevoProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
         String estadoNuevoProyecto = "En curso";
 
@@ -170,16 +174,26 @@ public class Test_asignar_tarea {
     @When("asigne la tarea con nombre {string} al proyecto {string}")
     public void asigne_la_tarea_con_nombre_al_proyecto(String string, String string2) {
 
+        //integral
+        proyectoService.crearProyecto(new Proyecto());
+        tareaService.obtener_tarea(1L).get().setEstado("Eliminada");
+        proyectoService.asignar_tarea(proyectoService.buscarPorID(2L).get(), 1L);
+
+        //unitario
         Tarea tareaCambio = proyecto3.getTarea(tarea3.getNombre());
 
-        proyecto4.add_tarea(tareaCambio);
+        assertEquals(tareaCambio, tarea3);
 
-        assertNull(proyecto4.getTarea(tareaCambio.getNombre()));
+        proyecto4.add_tarea(tareaCambio);
     }
 
     @Then("la tarea con nombre {string} no se asociará al nuevo proyecto")
     public void la_tarea_con_nombre_no_se_asociará_al_nuevo_proyecto(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+
+        //integral
+        assertTrue(proyectoService.buscarPorID(1L).get().getTareas().isEmpty());
+
+        //unitario
+        assertNull(proyecto4.getTarea(tarea3.getNombre()));
     }
 }

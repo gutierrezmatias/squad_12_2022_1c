@@ -1,4 +1,4 @@
-package com.aninfo.psa.controller;
+ package com.aninfo.psa.controller;
 
 import com.aninfo.psa.Repository.TareasRepository;
 import com.aninfo.psa.Services.ProyectoService;
@@ -7,6 +7,9 @@ import com.aninfo.psa.excepciones.ErrorNoExisteElProyectoParaAsignar;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Proyecto;
 import com.aninfo.psa.modelo.Tarea;
+
+import io.swagger.v3.oas.annotations.Operation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +41,12 @@ public class TareaController {
     @DeleteMapping("/tareas/{tareaid}")
     public void delete_tarea(@PathVariable Long tareaid){
         tareaService.deleteByid(tareaid);
+    }
+    
+    @Operation(summary = "Finalizar una tarea por id")
+    @PatchMapping("/tareas/{tareaid}")
+    public void finalizar_tarea(@PathVariable Long tareaid){
+        tareaService.finalizar(tareaid);
     }
 
     @GetMapping("/tareas/{tareaid}")

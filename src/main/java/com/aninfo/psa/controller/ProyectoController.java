@@ -63,6 +63,12 @@ public class ProyectoController {
     public void delete_proyecto(@PathVariable Long id){
         proyectoService.deleteById(id);
     }
+    
+    @Operation(summary = "Finalizar una tarea por id")
+    @PatchMapping("/proyectos/{id}")
+    public void finalizar_tarea(@PathVariable Long proyectoId){
+       proyectoService.finalizar(proyectoId);
+    }
 
     @Operation(summary = "Actualizar un proyecto por id")
     @PatchMapping("/proyectos/{id}")

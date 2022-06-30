@@ -1,6 +1,7 @@
 package com.aninfo.psa.modelo;
 
 
+import com.aninfo.psa.Services.EstadoProyectos;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Proyecto {
     private int fecha_inicio;
 
     private int fecha_fin;
+
     private String estado = "Pendiente";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
@@ -87,31 +89,34 @@ public class Proyecto {
 
     public void dar_baja() {
         this.estado = "Interrumpido";
+        for(Tarea tareaAsignada : tareas){
+            tareaAsignada.eliminar();
+        }
     }
 
     public void asignar_lider(Recurso recurso) {
         this.lider = recurso;
     }
 
-
     public Recurso getLider() {
         return this.lider;
     }
 
     public void add_tarea(Tarea tarea) {
-        if (estado.equals("Pendiente") || estado.equals("En curso")) this.tareas.add(tarea);
+        if ((estado.equals("Pendiente") || estado.equals("En curso"))
+            && (tarea.getEstado().equals("Pendiente")))
+            tareas.add(tarea);
     }
 
     public List<Tarea> getTareas() {
         return this.tareas;
     }
 
-
     public List<Recurso> lista_Recursos(){
         if (this.tareas == null){
             return new ArrayList<Recurso>();
         }
-        return this.tareas.stream().map(tarea -> tarea.getRecursoAsignado()).collect(Collectors.toList());
+        return this.tareas.stream().map(Tarea::getRecursoAsignado).collect(Collectors.toList());
     }
 
     public Long getid(){
@@ -177,7 +182,7 @@ public class Proyecto {
 	}
 	
 	public void finalizar() {
-		estado = "Finalizado";
+		this.estado = "Finalizado";
 		for (Tarea unaTarea: tareas) {
 			unaTarea.finalizar();
 		}
@@ -192,6 +197,6 @@ public class Proyecto {
 
 	public void setEstado(String unEstado) {
 		estado = unEstado;
-		
 	}
+
 }

@@ -24,6 +24,7 @@ public class TareaService {
         return tareasRepository.findAll();
     }
 
+    @Transactional
     public Optional<Tarea> obtener_tarea(Long id) {
         return tareasRepository.findById(id);
     }

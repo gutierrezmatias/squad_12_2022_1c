@@ -25,13 +25,13 @@ public class Tarea {
     private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
     private Recurso recursoAsignado;
-    private String estado;
-    private String prioridad;
+    private String estado = "Pendiente";
+    private String prioridad = "baja";
     private String descripcion;
     private String objetivo;
     private String ticketAsociado;
 
-    private ArrayList<Recurso> recursosAsignados;
+    private ArrayList<Recurso> recursosAsignados = new ArrayList<>();
 
     @Schema(hidden = true)
     private Long ProyectoID;
@@ -46,8 +46,6 @@ public class Tarea {
       descripcion = unaDescripcion;
       objetivo = unObjetivo;
       prioridad = unaPrioridad;
-      estado = "Pendiente";
-      recursosAsignados = new ArrayList<>();
     }
     
     public Tarea(int unaEstimacion) {

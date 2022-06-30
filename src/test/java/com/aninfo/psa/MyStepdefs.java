@@ -49,6 +49,7 @@ public class MyStepdefs {
         assertEquals(arg5, proyecto.getDescripcion());
     }
 
+    /*
     @When("solicito dar de baja un proyecto")
     public void solicitoDarDeBajaUnProyecto() {
         proyecto = new Proyecto();
@@ -64,6 +65,8 @@ public class MyStepdefs {
     public void suEstadoCambiaraA(String arg0) {
         assertEquals(arg0, dado_de_baja);
     }
+
+     */
 
     @And("elijo un proyecto")
     public void elijoUnProyecto() {
@@ -90,6 +93,7 @@ public class MyStepdefs {
 
     }
 
+    /*
     @When("elija una tarea sin estimacion de horas")
     public void elijaUnaTareaSinEstimacionDeHoras() {
          tarea = new Tarea();
@@ -115,7 +119,9 @@ public class MyStepdefs {
         tarea.ingresar_estimado(arg0);
     }
 
-    @And("una lista de proyectos creados: {string}, {string}, {string}")
+     */
+
+    /*@And("una lista de proyectos creados: {string}, {string}, {string}")
     public void unaListaDeProyectosCreados(String arg0, String arg1, String arg2) {
         listaDeProyectos = new ListaDeProyectos();
 
@@ -146,7 +152,9 @@ public class MyStepdefs {
         assertEquals(arg0, proyectosPedidos.get(1).getNombre());
         assertEquals(arg1, proyectosPedidos.get(0).getNombre());
     }
+    */
 
+    /*
     @Given("que hay proyecto con las tareas: {string}, {string}, {string}")
     public void queHayProyectoConLasTareas(String arg0, String arg1, String arg2) {
         proyecto = new Proyecto();
@@ -219,6 +227,6 @@ public class MyStepdefs {
     public void seMostraranLasTarea(String arg0) {
         assertEquals(arg0, tarea_busqueda_por_prioridad.get(0).getNombre());
     }
-    
+    */
 
 }

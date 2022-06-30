@@ -39,12 +39,9 @@ public class Test_asignar_tarea {
 
     //atributos para tests integrales
     private Tarea tarea5;
-    private Tarea tarea6;
-    private Tarea tarea7;
 
     private Proyecto proyecto5;
     private Proyecto proyecto6;
-    private Proyecto proyecto7;
 
     @Transactional
     @Given("que hay un proyecto {string}")
@@ -127,6 +124,7 @@ public class Test_asignar_tarea {
     }
 
     //escenario 3------------------------------
+    @Transactional
     @Given("exista una tarea con nombre {string} asignada a un proyecto con nombre {string} con estado {string}")
     public void exista_una_tarea_con_nombre_asignada_a_un_proyecto_con_nombre_con_estado(String nomnreTarea, String nombreProyecto, String estadoProyecto) {
 
@@ -134,17 +132,27 @@ public class Test_asignar_tarea {
         tarea5 = new Tarea(nomnreTarea, "Descripcion", "objetivo", "Alta");
         proyecto5 = new Proyecto(nombreProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
 
-        tareaService3.crear_tarea(tarea5);
+        assertEquals(proyectoService3.obtenerProyectos().size(), 2); //se cargaron los proyectos anteriores
+        assertEquals(proyecto5.getEstado(), "Pendiente");
+
         proyectoService3.crearProyecto(proyecto5);
+        assertEquals(proyectoService3.obtenerProyectos().get(1).getNombre(), proyecto5.getNombre());
 
-        assertEquals(proyectoService3.buscarPorID(1L).get(), proyecto5);
+        assertEquals(proyectoService3.buscarPorID(2L).get().getEstado(), "Pendiente");
 
-        proyectoService3.asignar_tarea(proyecto5, 1L);
+        tareaService3.crear_tarea(tarea5);
 
+        //busco la id de la tarea
+        assertEquals(tareaService3.obtener_tarea(3L).get().getNombre(), tarea5.getNombre());
 
-        proyectoService3.buscarPorID(1L).get().setEstado(estadoProyecto);
+        proyectoService3.asignar_tarea(proyectoService3.buscarPorID(2L).get(), 3L);
 
-        assertEquals(proyecto5.getEstado(), estadoProyecto);
+        assertEquals(proyectoService3.buscarPorID(2L).get().getTarea(tarea5.getNombre()).getNombre(), tarea5.getNombre());
+
+        proyectoService3.buscarPorID(2L).get().dar_baja();
+
+        assertEquals(proyectoService3.buscarPorID(2L).get().getEstado(), estadoProyecto);
+        assertEquals(proyectoService3.buscarPorID(2L).get().getTarea(tarea5.getNombre()).getEstado(), "Eliminada");
 
         //unitario
         tarea3 = new Tarea(nomnreTarea, "Descripcion", "objetivo", "Alta");
@@ -159,8 +167,22 @@ public class Test_asignar_tarea {
         assertEquals(proyecto3.getEstado(), estadoProyecto);
     }
 
+    @Transactional
     @Given("un proyecto con nombre {string}, con estado “En curso”")
     public void un_proyecto_con_nombre_con_estado_en_curso(String nombreNuevoProyecto) {
+
+        //integral
+        proyecto6 = new Proyecto(nombreNuevoProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
+
+        proyectoService3.crearProyecto(proyecto6);
+
+        assertEquals(proyectoService3.buscarPorID(4L).get().getNombre(), proyecto6.getNombre());
+        assertEquals(proyectoService3.buscarPorID(4L).get().getEstado(), "Pendiente");
+
+        proyectoService3.buscarPorID(4L).get().setEstado("En curso");
+
+        assertEquals(proyectoService3.buscarPorID(4L).get().getEstado(), "En curso");
+
 
         //unitario
         proyecto4 = new Proyecto(nombreNuevoProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
@@ -171,13 +193,19 @@ public class Test_asignar_tarea {
         assertEquals(proyecto4.getEstado(), estadoNuevoProyecto);
     }
 
+    @Transactional
     @When("asigne la tarea con nombre {string} al proyecto {string}")
-    public void asigne_la_tarea_con_nombre_al_proyecto(String string, String string2) {
+    public void asigne_la_tarea_con_nombre_al_proyecto(String nombreTarea, String nombreProyecto) {
 
         //integral
-        proyectoService.crearProyecto(new Proyecto());
-        tareaService.obtener_tarea(1L).get().setEstado("Eliminada");
-        proyectoService.asignar_tarea(proyectoService.buscarPorID(2L).get(), 1L);
+        Tarea tareaACambiar = tareaService3.obtener_tarea(3L).get();
+
+        assertEquals(tareaACambiar.getNombre(), tarea5.getNombre());
+        assertEquals(tareaACambiar.getEstado(), "Eliminada");
+
+        //cambio la tarea de proyecto
+        proyectoService3.asignar_tarea(proyectoService3.buscarPorID(4L).get(), 3L);
+
 
         //unitario
         Tarea tareaCambio = proyecto3.getTarea(tarea3.getNombre());
@@ -187,11 +215,12 @@ public class Test_asignar_tarea {
         proyecto4.add_tarea(tareaCambio);
     }
 
+    @Transactional
     @Then("la tarea con nombre {string} no se asociará al nuevo proyecto")
     public void la_tarea_con_nombre_no_se_asociará_al_nuevo_proyecto(String string) {
 
         //integral
-        assertTrue(proyectoService.buscarPorID(1L).get().getTareas().isEmpty());
+        assertNull(proyectoService3.buscarPorID(4L).get().getTarea(tarea5.getNombre()));
 
         //unitario
         assertNull(proyecto4.getTarea(tarea3.getNombre()));

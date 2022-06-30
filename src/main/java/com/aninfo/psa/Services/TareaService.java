@@ -16,8 +16,10 @@ import javax.transaction.Transactional;
 
 @Service
 public class TareaService {
+
     @Autowired
     private TareasRepository tareasRepository;
+
     @Autowired
     private ProyectosRepository proyectosRepository;
     public List<Tarea> obtener_tareas() {

@@ -176,7 +176,6 @@ public class Proyecto {
 	public boolean existeTarea(String unNombre) {
 		for (Tarea unaTarea: tareas) {
 			if (unaTarea.getNombre().equals(unNombre)) return true;
-			
 		}
 		return false;
 	}
@@ -198,5 +197,4 @@ public class Proyecto {
 	public void setEstado(String unEstado) {
 		estado = unEstado;
 	}
-
 }

@@ -75,8 +75,8 @@ public class ProyectoService {
     }
 
     @Transactional
-    public Tarea asignar_tarea(Proyecto proyecto, Long id) {
-        Optional<Tarea> optionalTarea = tareasRepository.findById(id);
+    public Tarea asignar_tarea(Proyecto proyecto, Long idTarea) {
+        Optional<Tarea> optionalTarea = tareasRepository.findById(idTarea);
 
         if (optionalTarea.isEmpty()){
             throw new NoExisteLaTareaBuscadaError();

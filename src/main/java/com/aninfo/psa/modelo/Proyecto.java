@@ -95,7 +95,10 @@ public class Proyecto {
     }
 
     public void asignar_lider(Recurso recurso) {
-        if(estado.equals("Pendiente") || estado.equals("En curso"))  this.lider = recurso;
+        if(estado.equals("Pendiente") || estado.equals("En curso")){
+            this.lider = recurso;
+            this.estado = "En curso";
+        }
     }
 
     public Recurso getLider() {

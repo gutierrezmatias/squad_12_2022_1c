@@ -4,8 +4,10 @@ import com.aninfo.psa.Repository.TareasRepository;
 import com.aninfo.psa.Services.ProyectoService;
 import com.aninfo.psa.Services.TareaService;
 import com.aninfo.psa.excepciones.ErrorNoExisteElProyectoParaAsignar;
+import com.aninfo.psa.excepciones.NoExisteElProyectoParaActualizar;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Proyecto;
+import com.aninfo.psa.modelo.ProyectoPatch;
 import com.aninfo.psa.modelo.Tarea;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,7 +53,7 @@ public class TareaController {
         }
         return ResponseEntity.of(Optionaltarea);
     }
-
+    
 }
 
 

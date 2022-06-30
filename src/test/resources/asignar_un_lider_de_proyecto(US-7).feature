@@ -1,13 +1,16 @@
 Feature: Asignar un lider de proyecto {US-7}
 
-  Scenario: Existe un proyecto sin lider asignado
-    Given que soy un empleado
-    And elijo un proyecto
-    When solicito a recursos humanos los recursos disponibles
-    Then el sistema permitira la designación de un empleado como lider de proyecto
+  Scenario: se asigna un lider
+    Given un proyecto sin líder asignado
+    When solicite a Recursos Humanos los recursos disponibles
+    Then el sistema permitirá la designación de un empleado como líder de ese proyecto
 
-  Scenario: Existe un proyecto con lider asignado
-    Given que soy un empleado
-    And elijo un proyecto
-    When solicito a recursos humanos los recursos disponibles
-    Then el sistema permitira la modificacion del lider del proyecto
+  Scenario: se cambia el lider de proyecto
+    Given un proyecto con líder asignado
+    When solicite a Recursos Humanos los empleados disponibles
+    Then el sistema permitirá la modificación del líder asignado por un recurso elegido para ese proyecto
+
+  Scenario: se intenta cambiar el lider de un proyecto interrumpido
+    Given un proyecto con estado “interrumpido”
+    When solicite los recursos disponibles
+    Then el sistema no permitirá la modificación del líder asignado en ese proyecto

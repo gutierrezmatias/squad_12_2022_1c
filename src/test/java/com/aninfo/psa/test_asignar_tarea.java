@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Test_asignar_tarea {
+public class test_asignar_tarea {
 
     @Autowired
     ProyectoService proyectoService;

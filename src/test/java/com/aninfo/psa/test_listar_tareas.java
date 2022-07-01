@@ -98,7 +98,6 @@ public class test_listar_tareas {
         proyectoService.asignar_tarea(proyectoService.buscarPorID(1L).get(),1L);
         proyectoService.asignar_tarea(proyectoService.buscarPorID(1L).get(),2L);
 
-
     }
 
     @Transactional

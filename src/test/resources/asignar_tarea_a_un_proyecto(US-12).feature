@@ -1,4 +1,4 @@
-Feature: Asignar tarea a un proyecto
+Feature: Asignar tarea a un proyecto {US-12}
 
   Scenario: Se le asigna una tarea a un proyecto
     Given que hay un proyecto "PSA-01"

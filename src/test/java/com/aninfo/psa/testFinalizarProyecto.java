@@ -47,8 +47,8 @@ public class testFinalizarProyecto {
 	@Then("el estado del proyecto {string} es {string}")
 	public void el_estado_del_proyecto_es(String unNombreProyeco, String unEstado) {
 		 Optional<Proyecto> proyectoPrueba = proyectoService.buscarPorID(unProyecto.getid());
-		   
-		   if (proyectoPrueba.isPresent()) assertEquals(proyectoPrueba.get().getEstado(), unEstado);
+
+		proyectoPrueba.ifPresent(proyecto -> assertEquals(proyecto.getEstado(), unEstado));
 	}
 
 	

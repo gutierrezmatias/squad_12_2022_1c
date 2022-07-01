@@ -1,4 +1,4 @@
-Feature: Borrar Tareas
+Feature: Borrar Tareas {US-22}
 
   Scenario: Borrar una tarea exitosamente
     Given que soy un empleado

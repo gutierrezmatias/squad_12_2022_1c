@@ -62,7 +62,8 @@ public class Tarea {
     }
 
     public void ingresar_estimado(int arg0) {
-        this.horasEstimadas = arg0;
+
+        if (estado.equals("Pendiente") || estado.equals("En curso")) this.horasEstimadas = arg0;
     }
 
     public int gethorasEstimadas() {
@@ -82,7 +83,8 @@ public class Tarea {
     }
 
     public void cambiar_prioridad(String prioridad) {
-        this.prioridad = prioridad;
+
+        if (estado.equals("Pendiente") || estado.equals("En curso")) this.prioridad = prioridad;
     }
 
     public String getPrioridad() {
@@ -119,7 +121,7 @@ public class Tarea {
 
         if(estado.equals("Pendiente") || estado.equals("En curso")) {
             recursosAsignados.add(empleado);
-            if(estado.equals("Pendiente")) estado = "En curso";
+            estado = "En curso";
         }
     }
 

@@ -1,5 +1,6 @@
 package com.aninfo.psa;
 
+import com.aninfo.psa.Services.ProyectoService;
 import com.aninfo.psa.Services.TareaService;
 import com.aninfo.psa.modelo.Proyecto;
 import com.aninfo.psa.modelo.Recurso;
@@ -19,12 +20,23 @@ public class test_estimar_tiempo_tarea {
     @Autowired
     TareaService tareaService;
 
+    @Autowired
+    ProyectoService proyectoService;
+
     private Tarea tarea1;
     private Tarea tarea2;
     private Tarea tarea3;
 
     private Proyecto proyecto1;
     private Proyecto proyecto2;
+
+    private Tarea tarea4;
+    private Tarea tarea5;
+    private Tarea tarea6;
+
+    private Proyecto proyecto3;
+    private Proyecto proyecto4;
+
 
     //escenario 1-------------
     @When("elija una tarea sin estimacion de horas")
@@ -75,6 +87,23 @@ public class test_estimar_tiempo_tarea {
         proyecto1.dar_baja();
 
         assertEquals(proyecto1.getEstado(), estadoProyecto);
+
+        //integral
+        proyecto3 = new Proyecto("proyecto interrumpido 3", "implementacion", "cliente", "alcance", "version", "descripcion");
+        tarea4 = new Tarea("nombre tarea 4", "Descripcion", "objetivo", "Alta");
+
+        tareaService.crear_tarea(tarea4);
+        proyectoService.crearProyecto(proyecto3);
+
+        //asigno la tarea en el proyecto
+        proyectoService.BuscarPorNombre(proyecto3.getNombre()).get(0).add_tarea(tareaService.obtener_tarea(tarea4.getId()).get());
+
+        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()), tarea4);
+
+        proyectoService.buscarPorID(proyecto3.getid()).get().dar_baja();
+
+        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getEstado(), estadoProyecto);
+
     }
 
     @Transactional
@@ -92,6 +121,12 @@ public class test_estimar_tiempo_tarea {
         proyecto1.getTarea(tarea1.getNombre()).ingresar_estimado(15);
 
         assertEquals(proyecto1.getTarea(tarea1.getNombre()).gethorasEstimadas(), 0);
+
+        //integral
+        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).gethorasEstimadas(), 0);
+
+        proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).ingresar_estimado(15);
+        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).gethorasEstimadas(), 0);
     }
 
     //escenario 4-------------
@@ -107,6 +142,14 @@ public class test_estimar_tiempo_tarea {
         proyecto2.asignar_lider(lider);
 
         assertEquals(proyecto2.getEstado(), "En curso");
+
+        //integral
+        proyecto4 = new Proyecto("proyecto 4 en curso", "implementacion", "cliente", "alcance", "version", "descripcion");
+
+        proyectoService.crearProyecto(proyecto4);
+        proyectoService.buscarPorID(proyecto4.getid()).get().asignar_lider(lider);
+
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getEstado(), "En curso");
     }
 
     @Transactional
@@ -130,6 +173,23 @@ public class test_estimar_tiempo_tarea {
         tarea3.eliminar();
 
         assertEquals(tarea3.getEstado(), "Eliminada");
+
+        //integral
+        tarea5 = new Tarea("tarea 5 finalizada", "Descripcion", "objetivo", "Alta");
+        tarea6 = new Tarea("tarea 6 eliminada", "Descripcion", "objetivo", "Alta");
+
+        tareaService.crear_tarea(tarea5);
+        tareaService.crear_tarea(tarea6);
+
+        //las agrego al proyecto
+        proyectoService.buscarPorID(proyecto4.getid()).get().add_tarea(tareaService.obtener_tarea(tarea5.getId()).get());
+        proyectoService.buscarPorID(proyecto4.getid()).get().add_tarea(tareaService.obtener_tarea(tarea6.getId()).get());
+
+        tareaService.obtener_tarea(tarea5.getId()).get().finalizar();
+        tareaService.obtener_tarea(tarea6.getId()).get().eliminar();
+
+        assertEquals(tareaService.obtener_tarea(tarea5.getId()).get().getEstado(), "Finalizada");
+        assertEquals(tareaService.obtener_tarea(tarea6.getId()).get().getEstado(), "Eliminada");
     }
 
     @Transactional
@@ -146,6 +206,17 @@ public class test_estimar_tiempo_tarea {
 
         tarea3.ingresar_estimado(15);
         assertEquals(tarea3.gethorasEstimadas(), 0);
+
+        //integral
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).gethorasEstimadas(), 0);
+
+        proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).ingresar_estimado(15);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).gethorasEstimadas(), 0);
+
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).gethorasEstimadas(), 0);
+
+        proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).ingresar_estimado(15);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).gethorasEstimadas(), 0);
     }
 
 }

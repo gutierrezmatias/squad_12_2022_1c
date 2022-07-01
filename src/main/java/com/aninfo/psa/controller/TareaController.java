@@ -13,6 +13,7 @@ import com.aninfo.psa.modelo.Tarea;
 import io.swagger.v3.oas.annotations.Operation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class TareaController {
     }
 
 @PostMapping("/tareas")
+@ResponseStatus(HttpStatus.CREATED)
     public Tarea crear_tarea(@RequestBody Tarea tarea){
         return tareaService.crear_tarea(tarea);
     }

@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -31,7 +32,9 @@ public class Tarea {
     private String objetivo;
     private String ticketAsociado;
 
-    private ArrayList<Recurso> recursosAsignados = new ArrayList<>();
+    @Schema(hidden = true)
+    @ManyToMany(cascade = {CascadeType.ALL})
+    private List<Recurso> recursosAsignados = new ArrayList<Recurso>();
 
     @Schema(hidden = true)
     private Long ProyectoID;
@@ -125,7 +128,7 @@ public class Tarea {
         }
     }
 
-    public ArrayList<Recurso> getRecursosAsignados() {
+    public List<Recurso> getRecursosAsignados() {
         return recursosAsignados;
     }
 }

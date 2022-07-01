@@ -24,15 +24,15 @@ public class ListaDeTareas {
         return tareas;
     }
 
-    public ArrayList<Tarea> buscar_estado(String arg0) {
-        var conEstado = tareas.stream()
+    public List<Tarea> buscar_estado(String arg0) {
+        List<Tarea> conEstado = tareas.stream()
                 .filter(tarea -> tarea.getEstado().equals(arg0))
                 .collect(Collectors.toList());
         return new ArrayList<Tarea>(conEstado);
     }
 
-    public ArrayList<Tarea> buscar_prioridad(String arg0) {
-        var conPrioridad = tareas.stream()
+    public List<Tarea> buscar_prioridad(String arg0) {
+        List<Tarea> conPrioridad = tareas.stream()
                 .filter(tarea -> tarea.getPrioridad().equals(arg0))
                 .collect(Collectors.toList());
         return new ArrayList<Tarea>(conPrioridad);

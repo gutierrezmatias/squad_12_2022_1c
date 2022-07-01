@@ -1,4 +1,3 @@
-
 plugins {
 	id 'org.springframework.boot' version '2.7.0'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -8,6 +7,7 @@ plugins {
 
 group = 'com.aninfo.psa'
 version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
 apply plugin: "eclipse"
 
 
@@ -65,4 +65,19 @@ configurations {
 	}
 }
 
+
+jar {
+	manifest {
+		attributes(
+				'Main-Class': 'com.aninfo.psa.PsaProyectosApplication'
+		)
+	}
+}
+bootJar {
+	archiveClassifier.set('boot')
+}
+
+jar {
+	archiveClassifier.set('')
+}
 

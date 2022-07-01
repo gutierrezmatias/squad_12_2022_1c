@@ -58,6 +58,11 @@ public class ProyectoController {
         return ResponseEntity.of(proyectoOptional);
     }
 
+    @Operation(summary = "Obtener todas las tareas de un proyecto")
+    @GetMapping("/proyectos/{id}/tareas")
+    public List<Tarea> getTareas(@PathVariable Long id){
+        return proyectoService.get_tareas(id);
+    }
     @Operation(summary = "Eliminar un proyecto por id")
     @DeleteMapping("/proyectos/{id}")
     public void delete_proyecto(@PathVariable Long id){
@@ -68,7 +73,7 @@ public class ProyectoController {
     @PatchMapping("/proyectos/{id}")
     public ResponseEntity<Proyecto> actualizar_proyecto(@PathVariable Long id, @RequestBody ProyectoPatch proyecto){
         Optional<Proyecto> optionalProyecto = proyectoService.buscarPorID(id);
-        if (optionalProyecto.isEmpty()){
+        if (!optionalProyecto.isPresent()){
             throw new NoExisteElProyectoParaActualizar();
         }
         return ResponseEntity.ok(proyectoService.actualizar_proyecto(optionalProyecto.get(),proyecto));
@@ -78,7 +83,7 @@ public class ProyectoController {
     @GetMapping("/proyectos/{id}/recursos")
     public List<Recurso> get_recursos_asignados(@PathVariable Long id){
         Optional<Proyecto> optionalProyecto = proyectoService.buscarPorID(id);
-        if (optionalProyecto.isEmpty()){
+        if (!optionalProyecto.isPresent()){
             throw new NoExisteElProyectoBuscadoError();
         }
         return optionalProyecto.get().lista_Recursos();
@@ -88,7 +93,7 @@ public class ProyectoController {
     @PutMapping("/proyectos/{id}/tareas")
     public Tarea asignar_tarea(@PathVariable Long id, Long tarea_id){
         Optional<Proyecto> Optionalproyecto = proyectoService.buscarPorID(id);
-        if (Optionalproyecto.isEmpty()){
+        if (!Optionalproyecto.isPresent()){
             throw new ErrorNoExisteElProyectoParaAsignar();
         }
         return proyectoService.asignar_tarea(Optionalproyecto.get(), tarea_id);
@@ -98,7 +103,7 @@ public class ProyectoController {
     @DeleteMapping("/proyectos/{id}/tareas")
     public void eliminar_tarea(@PathVariable Long id, Long tarea_id){
         Optional<Proyecto> Optionalproyecto = proyectoService.buscarPorID(id);
-        if (Optionalproyecto.isEmpty()){
+        if (!Optionalproyecto.isPresent()){
             throw new ErrorNoExisteElProyectoParaAsignar();
         }
         proyectoService.eliminar_tarea(id, tarea_id);

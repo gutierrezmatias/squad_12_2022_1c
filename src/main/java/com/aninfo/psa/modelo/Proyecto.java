@@ -38,6 +38,7 @@ public class Proyecto {
 
     private int fecha_fin;
 
+    @Schema(example = "En curso")
     private String estado = "Pendiente";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
@@ -133,7 +134,7 @@ public class Proyecto {
     public int getFecha_fin(){return this.fecha_fin;}
     public List<Tarea> buscar_tarea_por_estado(String arg0) {
 
-        var conEstado = tareas.stream()
+        List<Tarea> conEstado = tareas.stream()
                 .filter(tarea -> tarea.getEstado().equals(arg0))
                 .collect(Collectors.toList());
         return new ArrayList<Tarea>(conEstado);
@@ -141,7 +142,7 @@ public class Proyecto {
 
     public List<Tarea> buscar_tarea_por_prioridad(String arg0) {
 
-        var conPrioridad = tareas.stream()
+        List<Tarea> conPrioridad = tareas.stream()
                 .filter(tarea -> tarea.getPrioridad().equals(arg0))
                 .collect(Collectors.toList());
         return new ArrayList<Tarea>(conPrioridad);

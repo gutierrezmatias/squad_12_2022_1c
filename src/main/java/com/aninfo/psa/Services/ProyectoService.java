@@ -78,7 +78,7 @@ public class ProyectoService {
     public Tarea asignar_tarea(Proyecto proyecto, Long idTarea) {
         Optional<Tarea> optionalTarea = tareasRepository.findById(idTarea);
 
-        if (optionalTarea.isEmpty()){
+        if (!optionalTarea.isPresent()){
             throw new NoExisteLaTareaBuscadaError();
         }
 

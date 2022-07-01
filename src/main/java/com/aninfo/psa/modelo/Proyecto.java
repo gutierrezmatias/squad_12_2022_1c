@@ -1,11 +1,12 @@
 package com.aninfo.psa.modelo;
 
 
-import com.aninfo.psa.Services.EstadoProyectos;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,12 +35,13 @@ public class Proyecto {
     private List<Recurso> recursos = new ArrayList<Recurso>();*/
     private int horaEstimada;
 
-    private int fecha_inicio;
+    @Schema(hidden = true)
+    private String fecha_inicio;
 
     private int fecha_fin;
 
     @Schema(example = "En curso")
-    private String estado = "Pendiente";
+    private String estado = "En curso";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
     private Recurso lider;
@@ -54,7 +56,11 @@ public class Proyecto {
         this.descripcion = descripcion;
     }
    
-    public Proyecto(){}
+    public Proyecto(){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yy");
+        fecha_inicio = formatter.format(date);
+    }
 
     public Proyecto(String nombre) {
         this.nombre = nombre;
@@ -129,7 +135,7 @@ public class Proyecto {
 
     public int getHoraEstimada(){return this.horaEstimada;}
 
-    public int getFecha_inicio(){return this.fecha_inicio;}
+    public String getFecha_inicio(){return this.fecha_inicio;}
 
     public int getFecha_fin(){return this.fecha_fin;}
     public List<Tarea> buscar_tarea_por_estado(String arg0) {
@@ -153,19 +159,20 @@ public class Proyecto {
     }
 
     public void actualizar(ProyectoPatch proyecto1) {
-        this.nombre = (proyecto1.getNombre() == null) ? this.nombre : proyecto1.getNombre();
-        this.descripcion = (proyecto1.getDescripcion() == null) ? this.descripcion : proyecto1.getDescripcion();
-        this.alcance = (proyecto1.getAlcance() == null) ? this.alcance : proyecto1.getAlcance();
-        this.estado = (proyecto1.getEstado() == null) ? this.estado : proyecto1.getEstado();
-        this.version = (proyecto1.getVersion() == null) ? this.version : proyecto1.getVersion();
-        this.cliente = (proyecto1.getCliente() == null) ? this.cliente : proyecto1.getCliente();
+        this.nombre = (proyecto1.getNombre() == null || proyecto1.getNombre().isEmpty())  ? this.nombre : proyecto1.getNombre();
+        this.descripcion = (proyecto1.getDescripcion() == null || proyecto1.getDescripcion().isEmpty()) ? this.descripcion : proyecto1.getDescripcion();
+        this.alcance = (proyecto1.getAlcance() == null || proyecto1.getAlcance().isEmpty()) ? this.alcance : proyecto1.getAlcance();
+        this.estado = (proyecto1.getEstado() == null || proyecto1.getEstado().isEmpty()) ? this.estado : proyecto1.getEstado();
+        this.version = (proyecto1.getVersion() == null || proyecto1.getVersion().isEmpty()) ? this.version : proyecto1.getVersion();
+        this.cliente = (proyecto1.getCliente() == null || proyecto1.getCliente().isEmpty()) ? this.cliente : proyecto1.getCliente();
         this.lider = (proyecto1.getLider() == null) ? this.lider : proyecto1.getLider();
-        this.fecha_fin = (proyecto1.getFecha_fin() == null) ? this.fecha_fin : proyecto1.getFecha_fin();
+        this.tipo = (proyecto1.getTipo() == null || proyecto1.getTipo().isEmpty()) ? this.tipo : proyecto1.getTipo();
+        this.fecha_fin = (proyecto1.getFecha_fin() == null ) ? this.fecha_fin : proyecto1.getFecha_fin();
 
     }
 
     public void recalcular_horas_estimadas() {
-        this.horaEstimada = this.getTareas().stream().mapToInt(tarea -> tarea.gethorasEstimadas()).sum();
+        this.horaEstimada = this.getTareas().stream().mapToInt(tarea -> tarea.getHorasEstimadas()).sum();
     }
 
 	public void borrarTarea(String unNombre) {

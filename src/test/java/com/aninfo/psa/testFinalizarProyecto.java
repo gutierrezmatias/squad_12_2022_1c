@@ -16,6 +16,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import javax.transaction.Transactional;
+
 public class testFinalizarProyecto {
 
 	@Autowired
@@ -33,10 +35,12 @@ public class testFinalizarProyecto {
 		unProyecto = proyectoService.crearProyecto(new Proyecto(unNombreProyecto, "Desarrollo", "unCliente", "Algun alcance", "alguna version", "unaDescripcion"));
 	    proyectoService.asignar_estado(unProyecto.getid(), "En curso");
 	}
-	
+
+	@Transactional
 	@Given("hay un proyecto llamado {string} en pendiente")
 	public void hay_un_proyecto_llamado_en_pendiente(String unNombreProyecto) {
 		unProyecto = proyectoService.crearProyecto(new Proyecto(unNombreProyecto, "Desarrollo", "unCliente", "Algun alcance", "alguna version", "unaDescripcion"));
+		unProyecto.setEstado("Pendiente");
 	}
 	
 	@When("finalizo el proyecto {string}")

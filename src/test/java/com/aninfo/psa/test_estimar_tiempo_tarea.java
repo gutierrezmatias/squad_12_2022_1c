@@ -53,7 +53,7 @@ public class test_estimar_tiempo_tarea {
 
     @Then("la tarea pasara a tener <{int}> horas estimadas")
     public void la_tarea_pasara_a_tener_horas_estimadas(int arg0) {
-        assertEquals(arg0,tareaService.obtener_tarea(1L).get().gethorasEstimadas());
+        assertEquals(arg0,tareaService.obtener_tarea(1L).get().getHorasEstimadas());
     }
 
     //escenario 2-------------
@@ -117,16 +117,16 @@ public class test_estimar_tiempo_tarea {
     public void el_sistema_no_permitirá_modificaciones_en_la_tarea() {
 
         //unitario
-        assertEquals(proyecto1.getTarea(tarea1.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyecto1.getTarea(tarea1.getNombre()).getHorasEstimadas(), 0);
         proyecto1.getTarea(tarea1.getNombre()).ingresar_estimado(15);
 
-        assertEquals(proyecto1.getTarea(tarea1.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyecto1.getTarea(tarea1.getNombre()).getHorasEstimadas(), 0);
 
         //integral
-        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).getHorasEstimadas(), 0);
 
         proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).ingresar_estimado(15);
-        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyectoService.buscarPorID(proyecto3.getid()).get().getTarea(tarea4.getNombre()).getHorasEstimadas(), 0);
     }
 
     //escenario 4-------------
@@ -197,26 +197,26 @@ public class test_estimar_tiempo_tarea {
     public void el_sistema_no_permitirá_modificaciones_en_la_tarea_dada() {
 
         //unitario
-        assertEquals(tarea2.gethorasEstimadas(), 0);
+        assertEquals(tarea2.getHorasEstimadas(), 0);
 
         tarea2.ingresar_estimado(15);
-        assertEquals(tarea2.gethorasEstimadas(), 0);
+        assertEquals(tarea2.getHorasEstimadas(), 0);
 
-        assertEquals(tarea3.gethorasEstimadas(), 0);
+        assertEquals(tarea3.getHorasEstimadas(), 0);
 
         tarea3.ingresar_estimado(15);
-        assertEquals(tarea3.gethorasEstimadas(), 0);
+        assertEquals(tarea3.getHorasEstimadas(), 0);
 
         //integral
-        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).getHorasEstimadas(), 0);
 
         proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).ingresar_estimado(15);
-        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea5.getNombre()).getHorasEstimadas(), 0);
 
-        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).getHorasEstimadas(), 0);
 
         proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).ingresar_estimado(15);
-        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).gethorasEstimadas(), 0);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getTarea(tarea6.getNombre()).getHorasEstimadas(), 0);
     }
 
 }

@@ -2,11 +2,9 @@ package com.aninfo.psa.modelo;
 
 
 
-import io.cucumber.java.bs.A;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,6 +24,8 @@ public class Tarea {
     private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
     private Recurso recursoAsignado;
+
+    @Schema(example = "Pendiente")
     private String estado = "Pendiente";
     private String prioridad = "baja";
     private String descripcion;
@@ -54,7 +54,11 @@ public class Tarea {
     public Tarea(int unaEstimacion) {
     	horasEstimadas = unaEstimacion;
     }
-    public Tarea(){}
+    public Tarea(){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yy");
+        fechaCreacion = formatter.format(date);
+    }
 
     public Long getId(){
         return this.id;
@@ -69,7 +73,7 @@ public class Tarea {
         if (estado.equals("Pendiente") || estado.equals("En curso")) this.horasEstimadas = arg0;
     }
 
-    public int gethorasEstimadas() {
+    public int getHorasEstimadas() {
         return this.horasEstimadas;
     }
 

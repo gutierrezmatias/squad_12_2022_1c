@@ -68,9 +68,9 @@ public class ProyectoController {
     public void delete_proyecto(@PathVariable Long id){
         proyectoService.deleteById(id);
     }
-    
+
     @Operation(summary = "Actualizar un proyecto por id")
-    @PatchMapping("/proyectos/{id}")
+    @PutMapping("/proyectos/{id}/actualizar")
     public ResponseEntity<Proyecto> actualizar_proyecto(@PathVariable Long id, @RequestBody ProyectoPatch proyecto){
         Optional<Proyecto> optionalProyecto = proyectoService.buscarPorID(id);
         if (!optionalProyecto.isPresent()){

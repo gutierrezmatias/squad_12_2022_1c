@@ -21,6 +21,9 @@ public class ProyectoPatch {
     @Schema(required = false)
     private Integer fecha_fin;
 
+    @Schema(required = false)
+    private String tipo;
+
     public ProyectoPatch(){}
 
     public String getAlcance(){return this.alcance;}
@@ -37,4 +40,6 @@ public class ProyectoPatch {
     public Integer getFecha_fin() {
         return this.fecha_fin;
     }
+
+    public String getTipo(){return this.tipo;}
 }

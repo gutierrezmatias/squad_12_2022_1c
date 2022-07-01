@@ -2,6 +2,7 @@ package com.aninfo.psa.test_runner;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
@@ -11,5 +12,4 @@ import org.junit.runner.RunWith;
         ,publish = true
 )
 public class test_runner {
-
 }

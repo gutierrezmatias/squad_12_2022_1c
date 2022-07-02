@@ -18,6 +18,7 @@ public class test_listar_proyectos {
 
     @Autowired
     ProyectoService proyectoService;
+
     @Autowired
     TareaService tareaService;
 
@@ -40,9 +41,9 @@ public class test_listar_proyectos {
 
     @Then("se mostrarán los proyectos: {string}, {string}, {string}")
     public void seMostraránLosProyectos(String arg0, String arg1, String arg2) {
-        assertFalse(lista_proyectos.stream().filter(proyecto -> proyecto.getNombre().equals(arg0)).findFirst().isEmpty());
-        assertFalse(lista_proyectos.stream().filter(proyecto -> proyecto.getNombre().equals(arg1)).findFirst().isEmpty());
-        assertFalse(lista_proyectos.stream().filter(proyecto -> proyecto.getNombre().equals(arg2)).findFirst().isEmpty());
+        assertFalse(!lista_proyectos.stream().filter(proyecto -> proyecto.getNombre().equals(arg0)).findFirst().isPresent());
+        assertFalse(!lista_proyectos.stream().filter(proyecto -> proyecto.getNombre().equals(arg1)).findFirst().isPresent());
+        assertFalse(!lista_proyectos.stream().filter(proyecto -> proyecto.getNombre().equals(arg2)).findFirst().isPresent());
     }
 
     @And("primero apareceran <{string}> y <{string}>")

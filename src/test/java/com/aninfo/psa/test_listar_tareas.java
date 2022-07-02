@@ -50,9 +50,9 @@ public class test_listar_tareas {
     @Then("se mostrarán las tareas: {string}, {string}, {string}")
     public void seMostraránLasTareas(String arg0, String arg1, String arg2) {
         lista_tareas = proyectoService.get_tareas(1L);
-        assertFalse(lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg0)).findFirst().isEmpty());
-        assertFalse(lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg1)).findFirst().isEmpty());
-        assertFalse(lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg2)).findFirst().isEmpty());
+        assertFalse(!lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg0)).findFirst().isPresent());
+        assertFalse(!lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg1)).findFirst().isPresent());
+        assertFalse(!lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg2)).findFirst().isPresent());
     }
 
     @Transactional

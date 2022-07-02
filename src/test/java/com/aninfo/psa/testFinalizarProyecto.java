@@ -55,6 +55,5 @@ public class testFinalizarProyecto {
 		proyectoPrueba.ifPresent(proyecto -> assertEquals(proyecto.getEstado(), unEstado));
 	}
 
-	
 }
 	

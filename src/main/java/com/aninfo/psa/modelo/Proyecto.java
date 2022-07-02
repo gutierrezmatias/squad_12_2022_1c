@@ -41,7 +41,7 @@ public class Proyecto {
     private int fecha_fin;
 
     @Schema(example = "En curso")
-    private String estado = "En curso";
+    private String estado = "Pendiente";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
     private Recurso lider;

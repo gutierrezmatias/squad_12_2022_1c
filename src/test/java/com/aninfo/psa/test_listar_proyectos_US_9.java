@@ -101,6 +101,5 @@ public class test_listar_proyectos_US_9 {
 
         assertEquals(lista_proyectos.get(0).getNombre(), arg0);
         assertEquals(lista_proyectos.get(1).getNombre(), arg1);
-
     }
 }

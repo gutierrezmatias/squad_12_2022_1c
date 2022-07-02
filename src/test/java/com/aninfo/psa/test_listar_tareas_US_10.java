@@ -25,18 +25,32 @@ public class test_listar_tareas_US_10 {
 
     List<Tarea> lista_tareas;
 
+    private Tarea tarea1;
+    private Tarea tarea2;
+    private Tarea tarea3;
+    private Proyecto proyecto;
+
     @Transactional
     @Given("que hay proyecto con las tareas: {string}, {string}, {string}")
     public void queHayProyectoConLasTareas(String arg0, String arg1, String arg2) {
-        proyectoService.crearProyecto(new Proyecto());
+        proyecto = new Proyecto();
+        proyectoService.crearProyecto(proyecto);
 
-        tareaService.crear_tarea(new Tarea(arg0));
-        tareaService.crear_tarea(new Tarea(arg1));
-        tareaService.crear_tarea(new Tarea(arg2));
+        tarea1 = new Tarea(arg0);
+        tarea2 = new Tarea(arg1);
+        tarea3 = new Tarea(arg2);
 
-        proyectoService.asignar_tarea(proyectoService.buscarPorID(1L).get(),1L);
-        proyectoService.asignar_tarea(proyectoService.buscarPorID(1L).get(),2L);
-        proyectoService.asignar_tarea(proyectoService.buscarPorID(1L).get(),3L);
+        tareaService.crear_tarea(tarea1);
+        tareaService.crear_tarea(tarea2);
+        tareaService.crear_tarea(tarea3);
+
+        proyectoService.asignar_tarea(proyectoService.buscarPorID(proyecto.getid()).get(),tarea1.getId());
+        proyectoService.asignar_tarea(proyectoService.buscarPorID(proyecto.getid()).get(),tarea2.getId());
+        proyectoService.asignar_tarea(proyectoService.buscarPorID(proyecto.getid()).get(),tarea3.getId());
+
+        assertEquals(proyectoService.buscarPorID(proyecto.getid()).get().getTarea(tarea1.getNombre()).getNombre(), tarea1.getNombre());
+        assertEquals(proyectoService.buscarPorID(proyecto.getid()).get().getTarea(tarea2.getNombre()).getNombre(), tarea2.getNombre());
+        assertEquals(proyectoService.buscarPorID(proyecto.getid()).get().getTarea(tarea3.getNombre()).getNombre(), tarea3.getNombre());
     }
 
     @Transactional
@@ -49,12 +63,14 @@ public class test_listar_tareas_US_10 {
     @Transactional
     @Then("se mostrarán las tareas: {string}, {string}, {string}")
     public void seMostraránLasTareas(String arg0, String arg1, String arg2) {
-        lista_tareas = proyectoService.get_tareas(1L);
-        assertFalse(!lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg0)).findFirst().isPresent());
-        assertFalse(!lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg1)).findFirst().isPresent());
-        assertFalse(!lista_tareas.stream().filter(tarea -> tarea.getNombre().equals(arg2)).findFirst().isPresent());
+        lista_tareas = proyectoService.get_tareas(proyecto.getid());
+
+        assertFalse(lista_tareas.stream().noneMatch(tarea -> tarea.getNombre().equals(arg0)));
+        assertFalse(lista_tareas.stream().noneMatch(tarea -> tarea.getNombre().equals(arg1)));
+        assertFalse(lista_tareas.stream().noneMatch(tarea -> tarea.getNombre().equals(arg2)));
     }
 
+    //escenario 2 -----------------
     @Transactional
     @Given("que hay un proyecto con las {string} con el estado {string} y {string} con estado {string}")
     public void queHayUnProyectoConLasConElEstadoYConEstado(String arg0, String arg1, String arg2, String arg3) {

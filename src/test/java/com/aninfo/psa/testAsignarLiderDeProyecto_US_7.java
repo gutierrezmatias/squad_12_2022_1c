@@ -13,7 +13,7 @@ import javax.transaction.Transactional;
 
 import static org.junit.Assert.*;
 
-public class testAsignarLiderDeProyecto {
+public class testAsignarLiderDeProyecto_US_7 {
 
     private Proyecto proyecto1;
     private Proyecto proyecto2;

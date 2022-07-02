@@ -15,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 @Transactional
-public class test_listar_tareas {
+public class test_listar_tareas_US_10 {
 
     @Autowired
     ProyectoService proyectoService;

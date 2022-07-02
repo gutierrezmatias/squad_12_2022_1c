@@ -15,7 +15,7 @@ import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
-public class test_estimar_tiempo_tarea {
+public class test_estimar_tiempo_tarea_US_8 {
 
     @Autowired
     TareaService tareaService;

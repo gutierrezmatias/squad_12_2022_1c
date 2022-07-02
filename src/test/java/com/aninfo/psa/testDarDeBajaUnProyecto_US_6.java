@@ -12,7 +12,7 @@ import javax.transaction.Transactional;
 
 import static org.junit.Assert.assertEquals;
 
-public class testDarDeBajaUnProyecto {
+public class testDarDeBajaUnProyecto_US_6 {
 
     private Proyecto proyecto1;
     private Proyecto proyecto2;

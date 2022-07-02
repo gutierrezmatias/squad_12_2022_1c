@@ -9,7 +9,7 @@ import io.cucumber.java.en.When;
 
 import static org.junit.Assert.assertEquals;
 
-public class testAsignarResponsablesDeTarea {
+public class testAsignarResponsablesDeTarea_US_11 {
 
     private Proyecto proyecto;
     private Tarea tarea;

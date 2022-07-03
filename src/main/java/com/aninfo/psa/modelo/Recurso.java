@@ -13,14 +13,14 @@ public class Recurso {
     private Long id;
     private String name;
 
-    public Long getID(){
-        return this.id;
-    }
+    private Long id_recurso;
+
     public Recurso(){}
     public Recurso(String name) {
         this.name = name;
     }
 
+    public Long getId_recurso(){return this.id_recurso;}
     public String getName() {
         return this.name;
     }

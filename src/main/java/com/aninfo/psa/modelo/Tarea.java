@@ -113,7 +113,9 @@ public class Tarea {
         this.estado = "Eliminada";
     }
 
-    public void actualizar_proyecto_id(Object o) {
+    public void actualizar_proyecto_id(Long id) {
+        this.ProyectoID = id;
+
     }
 
     public String getObjetivo() {

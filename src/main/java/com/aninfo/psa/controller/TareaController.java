@@ -55,7 +55,10 @@ public class TareaController {
         }
         return ResponseEntity.of(Optionaltarea);
     }
-    
+    @PutMapping("/tareas/{tareaid}")
+    public Tarea actualizar_tarea(@PathVariable Long tareaid, @RequestParam Tarea tarea){
+        return new Tarea();
+    }
 }
 
 

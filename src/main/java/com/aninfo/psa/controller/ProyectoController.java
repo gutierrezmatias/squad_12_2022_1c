@@ -71,7 +71,7 @@ public class ProyectoController {
 
     @Operation(summary = "Actualizar un proyecto por id")
     @PutMapping("/proyectos/{id}/actualizar")
-    public ResponseEntity<Proyecto> actualizar_proyecto(@PathVariable Long id, @RequestBody ProyectoPatch proyecto){
+    public ResponseEntity<Proyecto> actualizar_proyecto(@PathVariable Long id, @RequestBody Proyecto proyecto){
         Optional<Proyecto> optionalProyecto = proyectoService.buscarPorID(id);
         if (!optionalProyecto.isPresent()){
             throw new NoExisteElProyectoParaActualizar();

@@ -33,7 +33,7 @@ public class Proyecto {
     /*@OneToMany(cascade = {CascadeType.ALL})
     @ApiModelProperty(hidden = true, required = false)
     private List<Recurso> recursos = new ArrayList<Recurso>();*/
-    private Integer horaestimada =0;
+    private Long horaestimada = 0l;
 
     @Schema(hidden = true)
     private String fecha_inicio;
@@ -145,7 +145,7 @@ public class Proyecto {
         return this.id;
     }
 
-    public int getHoraestimada(){return this.horaestimada;}
+    public Long getHoraestimada(){return this.horaestimada;}
 
     public String getFecha_inicio(){return this.fecha_inicio;}
 
@@ -170,7 +170,7 @@ public class Proyecto {
         tareas.removeIf(tarea -> tarea.getId().equals(tarea_id));
     }
 
-    public void actualizar(ProyectoPatch proyecto1) {
+    public void actualizar(Proyecto proyecto1) {
         this.nombre = (proyecto1.getNombre() == null || proyecto1.getNombre().isEmpty())  ? this.nombre : proyecto1.getNombre();
         this.descripcion = (proyecto1.getDescripcion() == null || proyecto1.getDescripcion().isEmpty()) ? this.descripcion : proyecto1.getDescripcion();
         this.alcance = (proyecto1.getAlcance() == null || proyecto1.getAlcance().isEmpty()) ? this.alcance : proyecto1.getAlcance();
@@ -179,12 +179,16 @@ public class Proyecto {
         this.cliente = (proyecto1.getCliente() == null || proyecto1.getCliente().isEmpty()) ? this.cliente : proyecto1.getCliente();
         this.lider = (proyecto1.getLider() == null) ? this.lider : proyecto1.getLider();
         this.tipo = (proyecto1.getTipo() == null || proyecto1.getTipo().isEmpty()) ? this.tipo : proyecto1.getTipo();
-        this.fecha_fin = (proyecto1.getFecha_fin() == null ) ? this.fecha_fin : proyecto1.getFecha_fin();
+        this.fecha_fin = (proyecto1.getFecha_fin() == null || proyecto1.getFecha_fin().isEmpty()) ? this.fecha_fin : proyecto1.getFecha_fin();
+        this.tareas = (proyecto1.getTareas() == null || proyecto1.getTareas().isEmpty()) ? this.tareas : proyecto1.getTareas();
+        this.fecha_fin = (proyecto1.getFecha_inicio() == null || proyecto1.getFecha_inicio().isEmpty()) ? this.fecha_inicio : proyecto1.getFecha_inicio();
+        this.horaestimada = (proyecto1.getHoraestimada() == null || proyecto1.getHoraestimada().equals(this.horaestimada) ) ? this.horaestimada : proyecto1.getHoraestimada();
+        this.recalcular_horas_estimadas();
 
     }
 
     public void recalcular_horas_estimadas() {
-        this.horaestimada = this.getTareas().stream().mapToInt(tarea -> tarea.getHorasEstimadas()).sum();
+        this.horaestimada = Long.valueOf(this.getTareas().stream().mapToInt(tarea -> tarea.getHorasEstimadas()).sum());
     }
 
 	public void borrarTarea(String unNombre) {

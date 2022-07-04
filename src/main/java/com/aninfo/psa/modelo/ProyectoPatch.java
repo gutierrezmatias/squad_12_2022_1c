@@ -26,6 +26,9 @@ public class ProyectoPatch {
 
     private String fecha_inicio;
 
+    @Schema(required = false)
+    private Long horaestimada;
+
     public ProyectoPatch(){}
 
     public String getAlcance(){return this.alcance;}

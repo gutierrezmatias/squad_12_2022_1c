@@ -115,7 +115,7 @@ public class ProyectoService {
     }
 
     @Transactional
-    public Proyecto actualizar_proyecto(Proyecto proyecto, ProyectoPatch proyecto1) {
+    public Proyecto actualizar_proyecto(Proyecto proyecto, Proyecto proyecto1) {
         proyecto.actualizar(proyecto1);
         proyectosRepository.save(proyecto);
 

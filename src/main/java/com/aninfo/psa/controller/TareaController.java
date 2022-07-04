@@ -44,7 +44,11 @@ public class TareaController {
             Optional<Proyecto> optionalProyecto = proyectoService.buscarPorID(idproyecto);
             if (optionalProyecto.isPresent()){
                 proyectoService.addTarea(respuesta, optionalProyecto.get());
+                optionalProyecto.get().recalcular_horas_estimadas();
                 return respuesta;
+            }
+            else{
+                throw new NoExisteElProyectoBuscadoError();
             }
         }
         return respuesta;

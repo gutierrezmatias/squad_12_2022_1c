@@ -13,7 +13,7 @@ public class Recurso {
     @Schema(hidden = true)
     private Long id;
 
-    @Hidden
+
     private String name;
 
     private Long id_recurso;

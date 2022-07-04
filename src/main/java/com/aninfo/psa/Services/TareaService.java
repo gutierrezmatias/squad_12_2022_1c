@@ -50,8 +50,13 @@ public class TareaService {
     @Transactional
 	public void eliminarTarea(Long id) {
 		Optional<Tarea> tareaAEliminar = tareasRepository.findById(id);
+        Optional<Proyecto> proyectoOptional = proyectosRepository.findById(tareaAEliminar.get().getProyectoID());
+        if (proyectoOptional.isPresent()){
+            proyectoOptional.get().remover_tarea(id);
+        }
 		if (tareaAEliminar.isPresent()) {
 			tareaAEliminar.get().setEstado("Eliminada");
+            tareaAEliminar.get().actualizar_proyecto_id(null);
 			tareasRepository.save(tareaAEliminar.get());
 		}
 		
@@ -78,5 +83,11 @@ public class TareaService {
 
 
     public void initialize() {
+    }
+
+    public Tarea actualizar_tarea(Optional<Tarea> optionalTarea, Tarea tarea) {
+       optionalTarea.get().actualizar(tarea);
+       return tareasRepository.save(optionalTarea.get());
+
     }
 }

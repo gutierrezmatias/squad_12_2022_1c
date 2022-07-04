@@ -17,9 +17,10 @@ import javax.persistence.*;
 public class Tarea {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(hidden = true)
     private Long id;
 
-    private int horasEstimadas;
+    private Long horasEstimadas;
     private String nombre;
     private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
@@ -36,7 +37,6 @@ public class Tarea {
     @ManyToMany(cascade = {CascadeType.ALL})
     private List<Recurso> recursosAsignados = new ArrayList<Recurso>();
 
-    @Schema(hidden = false)
     private Long proyectoID;
 
     public Tarea(String unNombre, String unaDescripcion, String unObjetivo, String unaPrioridad){
@@ -64,7 +64,7 @@ public class Tarea {
     }
     
     public Tarea(int unaEstimacion) {
-    	horasEstimadas = unaEstimacion;
+    	horasEstimadas = Long.valueOf(unaEstimacion);
     }
     public Tarea(){
         Date date = new Date();
@@ -82,10 +82,10 @@ public class Tarea {
 
     public void ingresar_estimado(int arg0) {
 
-        if (estado.equals("Pendiente") || estado.equals("En curso")) this.horasEstimadas = arg0;
+        if (estado.equals("Pendiente") || estado.equals("En curso")) this.horasEstimadas = Long.valueOf(arg0);
     }
 
-    public int getHorasEstimadas() {
+    public Long getHorasEstimadas() {
         return this.horasEstimadas;
     }
 
@@ -146,7 +146,18 @@ public class Tarea {
         }
     }
 
+    public String getDescripcion(){return this.descripcion;}
+
     public List<Recurso> getRecursosAsignados() {
         return recursosAsignados;
+    }
+
+    public void actualizar(Tarea tarea) {
+        this.nombre = (tarea.getNombre() == null || tarea.getNombre().isEmpty())  ? this.nombre : tarea.getNombre();
+        this.descripcion = (tarea.getDescripcion() == null || tarea.getDescripcion().isEmpty()) ? this.descripcion : tarea.getDescripcion();
+        this.estado = (tarea.getEstado() == null || tarea.getEstado().isEmpty()) ? this.estado : tarea.getEstado();
+        this.prioridad = (tarea.getPrioridad() == null ||  tarea.getPrioridad().isEmpty()) ? this.prioridad : tarea.getObjetivo();
+        this.recursoAsignado = (tarea.getRecursoAsignado() == null) ? this.recursoAsignado : tarea.getRecursoAsignado();
+        this.horasEstimadas = (tarea.getHorasEstimadas() == null) ? this.horasEstimadas : tarea.getHorasEstimadas();
     }
 }

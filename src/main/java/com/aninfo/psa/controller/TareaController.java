@@ -57,7 +57,7 @@ public class TareaController {
 
     @DeleteMapping("/tareas/{tareaid}")
     public void delete_tarea(@PathVariable Long tareaid){
-        tareaService.deleteByid(tareaid);
+        tareaService.eliminarTarea(tareaid);
     }
 
     @GetMapping("/tareas/{tareaid}")
@@ -68,9 +68,14 @@ public class TareaController {
         }
         return ResponseEntity.of(Optionaltarea);
     }
-    @PutMapping("/tareas/{tareaid}")
-    public Tarea actualizar_tarea(@PathVariable Long tareaid, @RequestParam Tarea tarea){
-        return new Tarea();
+    @PutMapping("/tareas/{tareaid}/actualizar")
+    public Tarea actualizar_tarea(@PathVariable Long tareaid, @RequestBody Tarea tarea){
+        Optional<Tarea> optionalTarea = tareaService.obtener_tarea(tareaid);
+        if (!optionalTarea.isPresent()){
+            throw new NoExisteLaTareaBuscadaError();
+        }
+        return tareaService.actualizar_tarea(optionalTarea,tarea);
+
     }
 }
 

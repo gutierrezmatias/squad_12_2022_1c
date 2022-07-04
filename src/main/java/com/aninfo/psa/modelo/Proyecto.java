@@ -188,7 +188,7 @@ public class Proyecto {
     }
 
     public void recalcular_horas_estimadas() {
-        this.horaestimada = Long.valueOf(this.getTareas().stream().mapToInt(tarea -> tarea.getHorasEstimadas()).sum());
+        this.horaestimada = Long.valueOf(this.getTareas().stream().mapToInt(tarea -> Math.toIntExact(tarea.getHorasEstimadas())).sum());
     }
 
 	public void borrarTarea(String unNombre) {

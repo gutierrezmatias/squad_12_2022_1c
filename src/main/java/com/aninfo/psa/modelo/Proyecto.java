@@ -33,12 +33,12 @@ public class Proyecto {
     /*@OneToMany(cascade = {CascadeType.ALL})
     @ApiModelProperty(hidden = true, required = false)
     private List<Recurso> recursos = new ArrayList<Recurso>();*/
-    private int horaEstimada;
+    private Integer horaestimada =0;
 
     @Schema(hidden = true)
     private String fecha_inicio;
 
-    private int fecha_fin;
+    private String fecha_fin;
 
     @Schema(example = "En curso")
     private String estado = "Pendiente";
@@ -47,13 +47,16 @@ public class Proyecto {
     private Recurso lider;
 
 
-    public Proyecto(String nombre, String tipo, String cliente, String alcance, String version, String descripcion) {
+    public Proyecto(String nombre, String tipo, String cliente, String alcance, String version, String descripcion, String FechaDeComienzo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.cliente = cliente;
         this.alcance = alcance;
         this.version = version;
         this.descripcion = descripcion;
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yy");
+        fecha_inicio = FechaDeComienzo;
     }
    
     public Proyecto(){
@@ -64,6 +67,15 @@ public class Proyecto {
 
     public Proyecto(String nombre) {
         this.nombre = nombre;
+    }
+
+    public Proyecto(String nombre, String tipo, String cliente, String alcance, String version, String descripcion) {
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.cliente = cliente;
+        this.alcance = alcance;
+        this.version = version;
+        this.descripcion = descripcion;
     }
 
     public String getNombre() {
@@ -133,11 +145,11 @@ public class Proyecto {
         return this.id;
     }
 
-    public int getHoraEstimada(){return this.horaEstimada;}
+    public int getHoraestimada(){return this.horaestimada;}
 
     public String getFecha_inicio(){return this.fecha_inicio;}
 
-    public int getFecha_fin(){return this.fecha_fin;}
+    public String getFecha_fin(){return this.fecha_fin;}
     public List<Tarea> buscar_tarea_por_estado(String arg0) {
 
         List<Tarea> conEstado = tareas.stream()
@@ -172,7 +184,7 @@ public class Proyecto {
     }
 
     public void recalcular_horas_estimadas() {
-        this.horaEstimada = this.getTareas().stream().mapToInt(tarea -> tarea.getHorasEstimadas()).sum();
+        this.horaestimada = this.getTareas().stream().mapToInt(tarea -> tarea.getHorasEstimadas()).sum();
     }
 
 	public void borrarTarea(String unNombre) {

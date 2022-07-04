@@ -15,19 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 public class test_asignar_tarea_US_12 {
 
     @Autowired
-    ProyectoService proyectoService;
+    ProyectoService proyectoService = new ProyectoService();
 
     @Autowired
-    TareaService tareaService;
+    TareaService tareaService = new TareaService();
 
     @Autowired
-    TareaService tareaService3;
+    TareaService tareaService3 = new TareaService();
 
     @Autowired
-    ProyectoService proyectoService2;
+    ProyectoService proyectoService2 = new ProyectoService();
 
     @Autowired
-    ProyectoService proyectoService3;
+    ProyectoService proyectoService3 = new ProyectoService();
 
     private Proyecto proyecto;
     private Tarea tarea;

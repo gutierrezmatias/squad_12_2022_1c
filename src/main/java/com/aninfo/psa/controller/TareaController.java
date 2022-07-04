@@ -4,6 +4,7 @@ import com.aninfo.psa.Repository.TareasRepository;
 import com.aninfo.psa.Services.ProyectoService;
 import com.aninfo.psa.Services.TareaService;
 import com.aninfo.psa.excepciones.ErrorNoExisteElProyectoParaAsignar;
+import com.aninfo.psa.excepciones.NoExisteElProyectoBuscadoError;
 import com.aninfo.psa.excepciones.NoExisteElProyectoParaActualizar;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Proyecto;

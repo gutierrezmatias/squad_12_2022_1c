@@ -19,7 +19,7 @@ public class ProyectoPatch {
     @Schema(required = false)
     private Recurso lider;
     @Schema(required = false)
-    private Integer fecha_fin;
+    private String fecha_fin;
 
     @Schema(required = false)
     private String tipo;
@@ -39,7 +39,7 @@ public class ProyectoPatch {
         return this.lider;
     }
 
-    public Integer getFecha_fin() {
+    public String getFecha_fin() {
         return this.fecha_fin;
     }
 

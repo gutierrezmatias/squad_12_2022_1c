@@ -23,6 +23,10 @@ public class Recurso {
         this.name = name;
     }
 
+    public Recurso(Long id){
+        this.id = id;
+    }
+
     public Long getId_recurso(){return this.id_recurso;}
     public String getName() {
         return this.name;

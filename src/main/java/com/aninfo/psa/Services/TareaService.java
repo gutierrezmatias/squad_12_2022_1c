@@ -75,4 +75,8 @@ public class TareaService {
 			tareasRepository.save(tareaACambiarEstado.get());
 		}
 	}
+
+
+    public void initialize() {
+    }
 }

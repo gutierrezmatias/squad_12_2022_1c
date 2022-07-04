@@ -8,6 +8,7 @@ import io.cucumber.spring.CucumberContextConfiguration;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 
 @SpringBootTest(classes = PsaProyectosApplication.class, webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @CucumberOptions
 @CucumberContextConfiguration
 @AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class CucumberSpringConfiguration {
 
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -59,6 +60,7 @@ public class ProyectoService {
         return estado1.compareTo(estado2);
     }
 
+    @Transactional
     public Optional<Proyecto> buscarPorID(Long id){
         return proyectosRepository.findById(id);
     }
@@ -71,6 +73,7 @@ public class ProyectoService {
         proyectosRepository.deleteById(id);
     }
 
+    @Transactional
     public List<Tarea> get_tareas(Long id) {
         return this.buscarPorID(id).get().getTareas();
     }
@@ -171,4 +174,26 @@ public class ProyectoService {
     public void addTarea(Tarea respuesta, Proyecto proyecto) {
         proyecto.add_tarea(respuesta);
     }
-}
+
+    public void initialize() {
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File("./src/main/resources/proyectos.csv")));
+            String line = " ";
+            String[] params;
+            while ((line = br.readLine()) != null) {
+
+                params = line.split(",");
+
+                Proyecto proyecto = new Proyecto(params[0],params[1],params[2],params[3],params[4],params[5],params[6]);
+                System.out.println(params[0]);
+                proyectosRepository.save(proyecto);
+            }
+            br.close();
+        } catch (FileNotFoundException ex) {
+            throw new RuntimeException(ex);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        }
+    }

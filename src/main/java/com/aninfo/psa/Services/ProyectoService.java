@@ -2,11 +2,13 @@ package com.aninfo.psa.Services;
 
 import com.aninfo.psa.Repository.ProyectosRepository;
 import com.aninfo.psa.Repository.TareasRepository;
+import com.aninfo.psa.excepciones.NoExisteElProyectoBuscadoError;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
 import com.aninfo.psa.modelo.Proyecto;
 import com.aninfo.psa.modelo.ProyectoPatch;
 import com.aninfo.psa.modelo.Tarea;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -78,6 +80,14 @@ public class ProyectoService {
         return this.buscarPorID(id).get().getTareas();
     }
 
+    @Transactional
+    public void dar_de_baja(Long id){
+        Optional<Proyecto> proyectoOptional = proyectosRepository.findById(id);
+        if (!proyectoOptional.isPresent()){
+            throw new NoExisteElProyectoBuscadoError();
+        }
+        proyectoOptional.get().dar_baja();
+    }
     @Transactional
     public Tarea asignar_tarea(Proyecto proyecto, Long idTarea) {
         Optional<Tarea> optionalTarea = tareasRepository.findById(idTarea);

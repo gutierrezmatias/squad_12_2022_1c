@@ -66,7 +66,7 @@ public class ProyectoController {
     @Operation(summary = "Eliminar un proyecto por id")
     @DeleteMapping("/proyectos/{id}")
     public void delete_proyecto(@PathVariable Long id){
-        proyectoService.deleteById(id);
+        proyectoService.dar_de_baja(id);
     }
 
     @Operation(summary = "Actualizar un proyecto por id")

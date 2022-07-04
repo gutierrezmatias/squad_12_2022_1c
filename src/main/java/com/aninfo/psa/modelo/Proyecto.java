@@ -181,7 +181,7 @@ public class Proyecto {
         this.tipo = (proyecto1.getTipo() == null || proyecto1.getTipo().isEmpty()) ? this.tipo : proyecto1.getTipo();
         this.fecha_fin = (proyecto1.getFecha_fin() == null || proyecto1.getFecha_fin().isEmpty()) ? this.fecha_fin : proyecto1.getFecha_fin();
         this.tareas = (proyecto1.getTareas() == null || proyecto1.getTareas().isEmpty()) ? this.tareas : proyecto1.getTareas();
-        this.fecha_fin = (proyecto1.getFecha_inicio() == null || proyecto1.getFecha_inicio().isEmpty()) ? this.fecha_inicio : proyecto1.getFecha_inicio();
+        this.fecha_inicio = (proyecto1.getFecha_inicio() == null) ? this.fecha_inicio : proyecto1.getFecha_inicio();
         this.horaestimada = (proyecto1.getHoraestimada() == null || proyecto1.getHoraestimada().equals(this.horaestimada) ) ? this.horaestimada : proyecto1.getHoraestimada();
         this.recalcular_horas_estimadas();
 

@@ -28,6 +28,7 @@ public class ProyectoService {
     @Autowired
     private TareaService tareaService;
 
+
     public Proyecto crearProyecto(Proyecto proyecto){
         return proyectosRepository.save(proyecto);
     }
@@ -165,5 +166,9 @@ public class ProyectoService {
                 .stream()
                 .filter(proyecto -> proyecto.getNombre().toLowerCase().contains(arg0.toLowerCase()))
                 .collect(Collectors.toList());
+    }
+
+    public void addTarea(Tarea respuesta, Proyecto proyecto) {
+        proyecto.add_tarea(respuesta);
     }
 }

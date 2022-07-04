@@ -24,6 +24,8 @@ public class ProyectoPatch {
     @Schema(required = false)
     private String tipo;
 
+    private String fecha_inicio;
+
     public ProyectoPatch(){}
 
     public String getAlcance(){return this.alcance;}
@@ -42,4 +44,6 @@ public class ProyectoPatch {
     }
 
     public String getTipo(){return this.tipo;}
+
+    public String getFecha_inicio(){return this.fecha_inicio;}
 }

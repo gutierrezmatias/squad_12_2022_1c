@@ -1,6 +1,7 @@
 package com.aninfo.psa.modelo;
 
 
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import javax.persistence.*;
@@ -11,6 +12,8 @@ public class Recurso {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Schema(hidden = true)
     private Long id;
+
+    @Hidden
     private String name;
 
     private Long id_recurso;

@@ -36,8 +36,8 @@ public class Tarea {
     @ManyToMany(cascade = {CascadeType.ALL})
     private List<Recurso> recursosAsignados = new ArrayList<Recurso>();
 
-    @Schema(hidden = true)
-    private Long ProyectoID;
+    @Schema(hidden = false)
+    private Long proyectoID;
 
     public Tarea(String unNombre, String unaDescripcion, String unObjetivo, String unaPrioridad){
       nombre = unNombre;
@@ -49,6 +49,18 @@ public class Tarea {
       descripcion = unaDescripcion;
       objetivo = unObjetivo;
       prioridad = unaPrioridad;
+    }
+    public Tarea(String unNombre, String unaDescripcion, String unObjetivo, String unaPrioridad, Long proyectoID){
+        nombre = unNombre;
+
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yy");
+        fechaCreacion = formatter.format(date);
+
+        descripcion = unaDescripcion;
+        objetivo = unObjetivo;
+        prioridad = unaPrioridad;
+        this.proyectoID = proyectoID;
     }
     
     public Tarea(int unaEstimacion) {
@@ -103,7 +115,7 @@ public class Tarea {
     //usado en proyecto
     public Recurso getRecursoAsignado(){return this.recursoAsignado;}
 
-    public Long getProyectoID(){return this.ProyectoID;}
+    public Long getProyectoID(){return this.proyectoID;}
 
     public void finalizar() {
         this.estado = "Finalizada";
@@ -114,7 +126,7 @@ public class Tarea {
     }
 
     public void actualizar_proyecto_id(Long id) {
-        this.ProyectoID = id;
+        this.proyectoID = id;
 
     }
 

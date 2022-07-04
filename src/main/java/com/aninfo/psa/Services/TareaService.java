@@ -3,7 +3,9 @@ package com.aninfo.psa.Services;
 import com.aninfo.psa.Repository.ProyectosRepository;
 import com.aninfo.psa.Repository.TareasRepository;
 import com.aninfo.psa.excepciones.LaTareaTieneAsignadaUnProyecto;
+import com.aninfo.psa.excepciones.NoExisteElProyectoBuscadoError;
 import com.aninfo.psa.excepciones.NoExisteLaTareaBuscadaError;
+import com.aninfo.psa.modelo.Proyecto;
 import com.aninfo.psa.modelo.Tarea;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +24,7 @@ public class TareaService {
 
     @Autowired
     private ProyectosRepository proyectosRepository;
+
     public List<Tarea> obtener_tareas() {
         return tareasRepository.findAll();
     }
@@ -31,8 +34,10 @@ public class TareaService {
         return tareasRepository.findById(id);
     }
 
+    @Transactional
     public Tarea crear_tarea(Tarea tarea) {
-        return tareasRepository.save(tarea);
+        Tarea respuesta = tareasRepository.save(tarea);
+        return respuesta;
     }
 
     public void deleteByid(Long id) {

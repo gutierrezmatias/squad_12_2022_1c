@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +32,21 @@ public class TareaController {
     TareaController(){
     }
 
+    @Transactional
 @PostMapping("/tareas")
 @ResponseStatus(HttpStatus.CREATED)
     public Tarea crear_tarea(@RequestBody Tarea tarea){
-        return tareaService.crear_tarea(tarea);
+
+        Tarea respuesta = tareaService.crear_tarea(tarea);
+        if (respuesta.getProyectoID() != null){
+            Long idproyecto = respuesta.getProyectoID();
+            Optional<Proyecto> optionalProyecto = proyectoService.buscarPorID(idproyecto);
+            if (optionalProyecto.isPresent()){
+                proyectoService.addTarea(respuesta, optionalProyecto.get());
+                return respuesta;
+            }
+        }
+        return respuesta;
     }
 
     @GetMapping("/tareas")

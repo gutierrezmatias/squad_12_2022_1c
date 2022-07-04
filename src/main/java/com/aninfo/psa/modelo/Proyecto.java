@@ -46,6 +46,8 @@ public class Proyecto {
     @Schema(required = true)
     private Recurso lider;
 
+    private String producto;
+
 
     public Proyecto(String nombre, String tipo, String cliente, String alcance, String version, String descripcion, String FechaDeComienzo) {
         this.nombre = nombre;
@@ -183,10 +185,12 @@ public class Proyecto {
         this.tareas = (proyecto1.getTareas() == null || proyecto1.getTareas().isEmpty()) ? this.tareas : proyecto1.getTareas();
         this.fecha_inicio = (proyecto1.getFecha_inicio() == null) ? this.fecha_inicio : proyecto1.getFecha_inicio();
         this.horaestimada = (proyecto1.getHoraestimada() == null || proyecto1.getHoraestimada().equals(this.horaestimada) ) ? this.horaestimada : proyecto1.getHoraestimada();
+        this.producto = (proyecto1.getProducto() == null || proyecto1.getProducto().isEmpty())  ? this.producto : proyecto1.getProducto();
         this.recalcular_horas_estimadas();
 
     }
 
+    public String getProducto(){return this.producto;}
     public void recalcular_horas_estimadas() {
         this.horaestimada = Long.valueOf(this.getTareas().stream().mapToInt(tarea -> Math.toIntExact(tarea.getHorasEstimadas())).sum());
     }

@@ -53,6 +53,7 @@ public class TareaService {
         Optional<Proyecto> proyectoOptional = proyectosRepository.findById(tareaAEliminar.get().getProyectoID());
         if (proyectoOptional.isPresent()){
             proyectoOptional.get().remover_tarea(id);
+            proyectoOptional.get().recalcular_horas_estimadas();
         }
 		if (tareaAEliminar.isPresent()) {
 			tareaAEliminar.get().setEstado("Eliminada");

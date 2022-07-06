@@ -70,12 +70,12 @@ public class testAsignarLiderDeProyecto_US_7 {
 
         //integral
         assertEquals(proyectoService.BuscarPorNombre(proyecto4.getNombre()).get(0).getNombre(), proyecto4.getNombre());
-        assertEquals(proyectoService.buscarPorID(1L).get().getNombre(), proyecto4.getNombre());
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getNombre(), proyecto4.getNombre());
 
         assertEquals(proyectoService.BuscarPorNombre(proyecto4.getNombre()).get(0).getEstado(), "Pendiente");
-        proyectoService.buscarPorID(1L).get().asignar_lider(lider);
+        proyectoService.buscarPorID(proyecto4.getid()).get().asignar_lider(lider);
 
-        assertEquals(proyectoService.buscarPorID(1L).get().getLider(), lider);
+        assertEquals(proyectoService.buscarPorID(proyecto4.getid()).get().getLider(), lider);
     }
 
     //escenario 2--------------------------
@@ -94,10 +94,10 @@ public class testAsignarLiderDeProyecto_US_7 {
         proyecto5 = new Proyecto("proyecto 5 con lider", "implementacion", "cliente", "alcance", "version", "descripcion");
         proyectoService.crearProyecto(proyecto5);
 
-        assertEquals(proyectoService.buscarPorID(2L).get().getNombre(), proyecto5.getNombre());
-        proyectoService.buscarPorID(2L).get().asignar_lider(lider);
+        assertEquals(proyectoService.buscarPorID(proyecto5.getid()).get().getNombre(), proyecto5.getNombre());
+        proyectoService.buscarPorID(proyecto5.getid()).get().asignar_lider(lider);
 
-        assertEquals(proyectoService.buscarPorID(2L).get().getLider(), lider);
+        assertEquals(proyectoService.buscarPorID(proyecto5.getid()).get().getLider(), lider);
     }
 
     @Transactional
@@ -118,9 +118,9 @@ public class testAsignarLiderDeProyecto_US_7 {
         assertEquals(proyecto2.getLider(), otroLider);
 
         //integral
-        proyectoService.buscarPorID(2L).get().asignar_lider(otroLider);
+        proyectoService.buscarPorID(proyecto5.getid()).get().asignar_lider(otroLider);
 
-        assertEquals(proyectoService.buscarPorID(2L).get().getLider(), otroLider);
+        assertEquals(proyectoService.buscarPorID(proyecto5.getid()).get().getLider(), otroLider);
     }
 
 
@@ -144,13 +144,13 @@ public class testAsignarLiderDeProyecto_US_7 {
         proyecto6 = new Proyecto("proyecto 6 interrumpido", "implementacion", "cliente", "alcance", "version", "descripcion");
         proyectoService.crearProyecto(proyecto6);
 
-        assertEquals(proyectoService.buscarPorID(3L).get().getNombre(), proyecto6.getNombre());
+        assertEquals(proyectoService.buscarPorID(proyecto6.getid()).get().getNombre(), proyecto6.getNombre());
 
-        assertEquals(proyectoService.buscarPorID(3L).get().getEstado(), "Pendiente");
+        assertEquals(proyectoService.buscarPorID(proyecto6.getid()).get().getEstado(), "Pendiente");
 
-        proyectoService.buscarPorID(3L).get().dar_baja();
+        proyectoService.buscarPorID(proyecto6.getid()).get().dar_baja();
 
-        assertEquals(proyectoService.buscarPorID(3L).get().getEstado(), "Interrumpido");
+        assertEquals(proyectoService.buscarPorID(proyecto6.getid()).get().getEstado(), "Interrumpido");
     }
 
     @Transactional
@@ -172,9 +172,9 @@ public class testAsignarLiderDeProyecto_US_7 {
         assertNull(proyecto3.getLider());
 
         //integral
-        proyectoService.buscarPorID(3L).get().asignar_lider(otroLider);
+        proyectoService.buscarPorID(proyecto6.getid()).get().asignar_lider(otroLider);
 
-        assertNull(proyectoService.buscarPorID(3L).get().getLider());
+        assertNull(proyectoService.buscarPorID(proyecto6.getid()).get().getLider());
     }
 
 

@@ -20,7 +20,7 @@ public class Tarea {
     @Schema(hidden = true)
     private Long id;
 
-    private Long horasEstimadas;
+    private Long horasEstimadas = 0L;
     private String nombre;
     private String fechaCreacion;
     @OneToOne(cascade = {CascadeType.ALL})
@@ -145,6 +145,7 @@ public class Tarea {
             estado = "En curso";
         }
     }
+    
 
     public String getDescripcion(){return this.descripcion;}
 

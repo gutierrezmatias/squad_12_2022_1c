@@ -132,27 +132,27 @@ public class test_asignar_tarea_US_12 {
         tarea5 = new Tarea(nomnreTarea, "Descripcion", "objetivo", "Alta");
         proyecto5 = new Proyecto(nombreProyecto, "implementacion", "cliente", "alcance", "version", "descripcion");
 
-        assertEquals(proyectoService3.obtenerProyectos().size(), 2); //se cargaron los proyectos anteriores
+        assertEquals(proyectoService3.obtenerProyectos().size(), 0); //se cargaron los proyectos anteriores
         assertEquals(proyecto5.getEstado(), "Pendiente");
 
         proyectoService3.crearProyecto(proyecto5);
-        assertEquals(proyectoService3.obtenerProyectos().get(1).getNombre(), proyecto5.getNombre());
+        assertEquals(proyectoService3.obtenerProyectos().get(0).getNombre(), proyecto5.getNombre());
 
-        assertEquals(proyectoService3.buscarPorID(2L).get().getEstado(), "Pendiente");
+        assertEquals(proyectoService3.buscarPorID(1L).get().getEstado(), "Pendiente");
 
         tareaService3.crear_tarea(tarea5);
 
         //busco la id de la tarea
-        assertEquals(tareaService3.obtener_tarea(3L).get().getNombre(), tarea5.getNombre());
+        assertEquals(tareaService3.obtener_tarea(1L).get().getNombre(), tarea5.getNombre());
 
-        proyectoService3.asignar_tarea(proyectoService3.buscarPorID(2L).get(), 3L);
+        proyectoService3.asignar_tarea(proyectoService3.buscarPorID(1L).get(), 1L);
 
-        assertEquals(proyectoService3.buscarPorID(2L).get().getTarea(tarea5.getNombre()).getNombre(), tarea5.getNombre());
+        assertEquals(proyectoService3.buscarPorID(1L).get().getTarea(tarea5.getNombre()).getNombre(), tarea5.getNombre());
 
-        proyectoService3.buscarPorID(2L).get().dar_baja();
+        proyectoService3.buscarPorID(1L).get().dar_baja();
 
-        assertEquals(proyectoService3.buscarPorID(2L).get().getEstado(), estadoProyecto);
-        assertEquals(proyectoService3.buscarPorID(2L).get().getTarea(tarea5.getNombre()).getEstado(), "Eliminada");
+        assertEquals(proyectoService3.buscarPorID(1L).get().getEstado(), estadoProyecto);
+        assertEquals(proyectoService3.buscarPorID(1L).get().getTarea(tarea5.getNombre()).getEstado(), "Eliminada");
 
         //unitario
         tarea3 = new Tarea(nomnreTarea, "Descripcion", "objetivo", "Alta");
@@ -176,12 +176,12 @@ public class test_asignar_tarea_US_12 {
 
         proyectoService3.crearProyecto(proyecto6);
 
-        assertEquals(proyectoService3.buscarPorID(4L).get().getNombre(), proyecto6.getNombre());
-        assertEquals(proyectoService3.buscarPorID(4L).get().getEstado(), "Pendiente");
+        assertEquals(proyectoService3.buscarPorID(2L).get().getNombre(), proyecto6.getNombre());
+        assertEquals(proyectoService3.buscarPorID(2L).get().getEstado(), "Pendiente");
 
-        proyectoService3.buscarPorID(4L).get().setEstado("En curso");
+        proyectoService3.buscarPorID(2L).get().setEstado("En curso");
 
-        assertEquals(proyectoService3.buscarPorID(4L).get().getEstado(), "En curso");
+        assertEquals(proyectoService3.buscarPorID(2L).get().getEstado(), "En curso");
 
 
         //unitario
@@ -198,13 +198,13 @@ public class test_asignar_tarea_US_12 {
     public void asigne_la_tarea_con_nombre_al_proyecto(String nombreTarea, String nombreProyecto) {
 
         //integral
-        Tarea tareaACambiar = tareaService3.obtener_tarea(3L).get();
+        Tarea tareaACambiar = tareaService3.obtener_tarea(1L).get();
 
         assertEquals(tareaACambiar.getNombre(), tarea5.getNombre());
         assertEquals(tareaACambiar.getEstado(), "Eliminada");
 
         //cambio la tarea de proyecto
-        proyectoService3.asignar_tarea(proyectoService3.buscarPorID(4L).get(), 3L);
+        proyectoService3.asignar_tarea(proyectoService3.buscarPorID(1L).get(), 1L);
 
 
         //unitario
@@ -220,7 +220,7 @@ public class test_asignar_tarea_US_12 {
     public void la_tarea_con_nombre_no_se_asociará_al_nuevo_proyecto(String string) {
 
         //integral
-        assertNull(proyectoService3.buscarPorID(4L).get().getTarea(tarea5.getNombre()));
+        assertNull(proyectoService3.buscarPorID(2L).get().getTarea(tarea5.getNombre()));
 
         //unitario
         assertNull(proyecto4.getTarea(tarea3.getNombre()));

@@ -44,7 +44,7 @@ public class Proyecto {
     private String estado = "Pendiente";
     @OneToOne(cascade = {CascadeType.ALL})
     @Schema(required = true)
-    private Recurso lider;
+    private Recurso lider = new Recurso();
 
     private String producto;
 

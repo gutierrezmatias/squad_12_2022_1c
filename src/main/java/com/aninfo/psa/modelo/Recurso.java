@@ -14,7 +14,7 @@ public class Recurso {
     private Long id;
 
 
-    private String name;
+    private String name = "";
 
     private Long id_recurso;
 

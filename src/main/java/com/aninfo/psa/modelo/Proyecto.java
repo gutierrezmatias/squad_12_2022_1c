@@ -65,6 +65,7 @@ public class Proyecto {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat ("dd/MM/yy");
         fecha_inicio = formatter.format(date);
+        this.lider = new Recurso();
     }
 
     public Proyecto(String nombre) {
